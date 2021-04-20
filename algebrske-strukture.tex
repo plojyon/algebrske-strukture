@@ -1,0 +1,167 @@
+\documentclass{article}
+
+% General document formatting
+\usepackage[margin=0.7in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage{url, hyperref}
+
+% Related to math
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+
+% encoding and language
+\usepackage{lmodern}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% multiline comments
+\usepackage{verbatim}
+
+% amogus
+\usepackage{amogus}
+
+% images
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+% theorems
+\theoremstyle{definition}
+\newtheorem{definition}{Definicija}[section]
+\newtheorem{lemma}{Lema}[section]
+\newtheorem{conseq}{Posledica}[section]
+\newtheorem{claim}{Trditev}[section]
+\newtheorem{theorem}{Izrek}[section]
+%%
+\theoremstyle{remark}
+\newtheorem*{ex}{Primer}
+\newtheorem*{rem}{Opomba}
+
+% I like my squares DARK
+%\renewcommand\qedsymbol{$\blacksquare$}
+
+% convenience purposes
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+
+% fix bordermatrix
+\usepackage{etoolbox}
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+
+
+\begin{document}	
+	\title{Algebrske strukture - zapiski predavanj prof. Klav"zarja}
+	\author{Yon Ploj}
+	\date{2. semester 2021}
+	\maketitle
+	
+	%\tableofcontents
+	%\vspace{2cm}
+
+	% 13. 04. 2021
+	\subsection{Lastnosti operacij}
+	\begin{definition}[Asociativnost]
+		\[ (a \cdot b) \cdot c = a \cdot (b \cdot c) \]
+	\end{definition}
+	\begin{definition}[Komutativnost]
+		\[ a \cdot b = b \cdot a \]
+	\end{definition}
+	\begin{definition}[Enota]
+		\[ a \cdot e = e \cdot a = a \]
+	\end{definition}
+	\begin{theorem}
+		Enota je enoli"cna.
+	\end{theorem}
+	\begin{proof}
+		Predpostavimo, da obstajata dve enoti $e_1$ in $e_2$.
+		Ker je $e_1$ enota, je $e_1 \cdot e_2 = e_2$.
+		Ker je $e_2$ enota, je $e_1 \cdot e_2 = e_1$.
+		Sledi, da je $e_1 = e_2$.
+	\end{proof}
+
+	\begin{definition}[Inverz / Obratna vrednost $a$]
+		\[ a \cdot a^{-1} = a^{-1} \cdot a = e \]
+	\end{definition}
+	\begin{rem}
+		Inverz abstraktnega mno"zenja ozna"cujemo z $a^{-1}$, inverz abstraktnega se"stevanja pa z $-a$.
+	\end{rem}
+	\begin{theorem}
+		Inverz je enoli"cen.
+	\end{theorem}
+	\begin{proof}
+		Predpostavimo, da obstajata dva inverza $b_1$ in $b_2$.
+		\[ b_1 = b_1 \cdot e = b_1 \cdot (a \cdot b_2) = (b_1 \cdot a) \cdot b_2 = e \cdot b_2 = b_2 \]
+	\end{proof}
+
+	\section{Algebrske strukture}
+	\begin{definition}[Notranja operacija mno"zice $A$]
+		\[ f: A \times A \rightarrow A\]
+		Z infiksno notacijo ozna"cujemo $f(a,b)$ kot $a \cdot b$ ali $ab$
+	\end{definition}
+	\begin{definition}[Algebrska struktura]
+		Mno"zica z vsaj eno notrajno operacijo
+	\end{definition}
+	\begin{definition}[Grupoid]
+		Mno"zica z notrajno operacijo. $(M, \cdot)$
+	\end{definition}
+	\begin{definition}[Polgrupa]
+		Asociativen grupoid.
+	\end{definition}
+	\begin{definition}[Monoid]
+		Polgrupa z enoto.
+	\end{definition}
+	\begin{definition}[Grupa]
+		Monoid, kjer je vsak element obrnljiv.
+	\end{definition}
+	\begin{definition}[Abelova grupa]
+		Komutativna grupa.
+	\end{definition}
+
+	\begin{comment}
+	\begin{definition}[Kolobar]
+		Mno"zica z 2 operacijama $(M, +, \cdot)$ \\
+		kjer je $(M, +)$ abelova grupa in $(M, \cdot)$ monoid.
+		% kokoid
+	\end{definition}
+	\begin{definition}[Obseg]
+		Kolobar, kjer so neni"celni elementi grupa za $\cdot$
+	\end{definition}
+	\begin{definition}[Polje]
+		Komutativni obseg
+	\end{definition}
+	\begin{definition}[Modul]
+		Kolobar z abelovo grupo $((M, +, \cdot), (V, \oplus))$
+	\end{definition}
+	\begin{definition}[Vektorski prostor]
+		Modul, kjer je $(M, +, \cdot)$ polje.
+	\end{definition}
+	\end{comment}
+	\subsection{Mno"zica $\Z_n$}
+	\begin{definition}[Kongruenca]
+			$a$ in $b$ sta kongruentna po modulu $m$ ntk. obstajajo $p,q,r \in \Z_n$, da velja:
+			\[ a = p*m + r \]
+			\[ b = q*m + r \]
+			\[ r < p \quad \land \quad r < q \]
+	\end{definition}
+	Relacija kongruence je ekvivalen"cna, zato razdeli $\Z_n$ na ekvivalen"cne razrede ostankov: $\lbrace 0, 1, \ldots, n-1 \rbrace$
+	
+	\begin{rem}
+		V nadaljevanju bomo uporabljali operaciji $+_{n}$ in $\cdot_{n}$ kot se"stevanje/mno"zenje po modulu $n$.
+	\end{rem}
+	
+	\begin{claim}
+		$(\Z_n, +_n)$ je grupa
+	\end{claim}
+	\begin{claim}
+		$(\Z_n, \cdot_n)$ je monoid
+	\end{claim}
+	$x \in \Z_n$ je obrnljiv $\iff$ $x \perp m$. Zato velja, da so vsi elementi v $\Z_p$ (kjer je $p$ pra"stevilo) obrnljivi. $\Z_p$ je torej grupa.
+	
+	% 20. 4. 2021 (blaze it)
+	\section{Grupe}
+	
+\end{document}
