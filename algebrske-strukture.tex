@@ -17,8 +17,8 @@
 % multiline comments
 \usepackage{verbatim}
 
-% amogus
-\usepackage{amogus}
+% dashed underline
+\usepackage{ulem}
 
 % images
 \usepackage{graphicx}
@@ -37,7 +37,7 @@
 \newtheorem*{rem}{Opomba}
 
 % I like my squares DARK
-%\renewcommand\qedsymbol{$\blacksquare$}
+\renewcommand\qedsymbol{$\blacksquare$}
 
 % convenience purposes
 \newcommand{\N}{\mathbb{N}}
@@ -140,6 +140,7 @@
 		Modul, kjer je $(M, +, \cdot)$ polje.
 	\end{definition}
 	\end{comment}
+	
 	\subsection{Mno"zica $\Z_n$}
 	\begin{definition}[Kongruenca]
 			$a$ in $b$ sta kongruentna po modulu $m$ ntk. obstajajo $p,q,r \in \Z_n$, da velja:
@@ -163,5 +164,152 @@
 	
 	% 20. 4. 2021 (blaze it)
 	\section{Grupe}
+	\begin{definition}[Cayleyeva tabela]
+		Tabela, ki prikazuje definicijo operacije v kon"cnem monoidu.
+		$$
+		\bbordermatrix{
+			\cdot & i & r & s & x & y & z \cr
+				i & i & r & s & x & y & z \cr
+				r & r & s & i & y & z & x \cr
+				s & s & i & r & z & x & y \cr
+				x & x & z & y & i & s & r \cr
+				y & y & x & z & r & i & s \cr
+				z & z & y & x & s & r & i \cr
+		}
+		$$
+	\end{definition}
+	\begin{rem}
+		V Cayleyevi tabeli grupe so vsi elementi v vsakem stolpcu in vsaki vrstici med seboj razli"cni (Cayleyeva tabela je latinski kvadrat reda $n$). To sledi iz izreka \ref{praviloKrajsanja}
+	\end{rem}
+	\begin{theorem}[Pravilo kraj"sanja]\label{praviloKrajsanja}
+		"Ce je $(G, \cdot)$ grupa in $a, b, c \in G$, potem velja:
+		\[ ba = ca \implies b = c \]
+		\[ ab = ac \implies b = c \]
+	\end{theorem}
+	\begin{proof}
+		Naj bo $ba = ca$. Na desni pomno"zimo z $a^{-1}$ in zaradi asociativnosti dobimo:
+		\[ (ba)a^{-1} = (ca)a^{-1} \]
+		\[ b(aa^{-1}) = c(aa^{-1}) \]
+		\[ be = ce \]
+		\[ b = c \]
+	\end{proof}
+
+	\begin{definition}[Red elementa]
+		Naj bo $(G, \cdot)$ kon"cna grupa. Tedaj je red elementa $a \in G$ najmanj"se naravno "stevilo $n$, za katerega velja
+		\[ a^n = e \]
+	\end{definition}
+	\begin{claim}
+		Red elementa je dobro definiran
+	\end{claim}
+	\begin{proof}
+		Poglejmo zaporedje: $a^1, a^2, \cdots, a^{k+1}$, kjer je $k=|G|$. Zaporedje ima $k+1$ elementov, na"sa grupa pa jih ima $k$.
+		Po dirichletovem na"celu % osnovni princip kombinatorike
+		\[\exists p,q: (p \neq q \land (\text{B"SS } p < q) \land a^p = a^q) \]
+		Tedaj
+		\[ e = (a^p)(a^p)^{-1} = (a^q)(a^p)^{-1} = a^q a^{-p} = a^{q-p} \]
+		Sledi $a^{q-p} = e$, kar smo "zeleli pokazati.
+	\end{proof}
+	\begin{rem}
+		Red enote je $1$ in ker je enota enoli"cna, je enota edini element reda $1$.
+	\end{rem}
 	
+	\section{Podgrupe}
+	\begin{definition}[Podgrupa]
+		Naj bo $(G, \cdot)$ grupa. Tedaj je $H \subseteq G$ podgrupa, "ce je $(H, \cdot)$ tudi grupa. Pri tem je operacija obakrat ista. Ozna"cimo $H \leq G$.
+	\end{definition}
+	\begin{definition}[Prava podgrupa]
+		Naj bo $(H, \cdot)$ podrgupa $(G, \cdot)$. "Ce je $H \subset G \text{ (torej } H \neq G$), je $H$ prava podgrupa $G$. Ozna"cimo $H < G$.
+	\end{definition}
+	
+	\begin{ex}[Trivialna podgrupa]
+		Za vsako grupo $G$ velja $G \leq G$ in $\lbrace e \rbrace \leq G$.
+	\end{ex}
+	
+	\begin{ex}
+		$(\Q^+, \cdot) < (\R^+, \cdot)$
+	\end{ex}
+	\begin{ex}
+		$F := \lbrace f: \R \rightarrow \R \rbrace$. $(F, +)$ je grupa. \\
+		$C := \lbrace f: \R \rightarrow \R ; f \text{ je zvezna}\rbrace$. $(C, +)$ je grupa. \\
+		$(C, +) < (F, +)$
+	\end{ex}
+
+	\begin{theorem}[Glavni izrek o podgrupah]\label{glavniIzrekPodrgup}
+		Naj bo $(G, \cdot)$ grupa in $\emptyset \neq H \subseteq G$. Tedaj je $(H, \cdot)$ podgrupa v $(G, \cdot)$ natanko tedaj, ko
+		\[ \forall x,y \in H: (x^{-1}y \in H) \]
+	\end{theorem}
+	\begin{proof}
+		($\Rightarrow$) Naj bosta $x,y \in H$. Ker je $(H, \cdot)$ podgrupa in s tem sama zase grupa, je tudi $x^{-1} \in H$. Zato je tudi $x^{-1}y \in H$.
+		\\
+		($\Leftarrow$) Naj $\forall x,y \in H: (x^{-1}y \in H)$.
+		\begin{itemize}
+			\item asociativnost \\
+			"ce so $x,y,z \in H$, potem so tudi $x,y,z \in G$. Ker v $G$ velja asociativnost, velja tudi v $H$.
+			
+			\item enota \\
+			Ker je $H \neq \emptyset$, $\exists x \in H$. Postavimo $y = x$. Potem je tudi $x^{-1}x = e \in H$.
+			
+			\item inverz \\
+			Vemo, da je $e \in H$. Naj bo $x \in H$. Postavimo $y = e$: $x^{-1}y \in H \implies x^{-1}e \in H \implies x^{-1} \in H$.
+			
+			\item zaprtost \\
+			$x, y \in H$. Vemo "ze, da je $x^{-1} \in H$, zato je tudi $(x^{-1})^{-1} \in H$. Zato je $xy = (x^{-1})^{-1}y \in H$.
+		\end{itemize}
+	\end{proof}
+	
+	Za kon"cne grupe je kriterij "se enostavnej"si:
+	\begin{theorem}
+		Naj bo $(G, \cdot)$ kon"cna grupa in $\emptyset \neq H \subseteq G$. Tedaj je $(H, \cdot) \leq (G, \cdot) \iff (x,y \in H \implies xy \in H)$
+	\end{theorem}
+	\begin{proof}
+		Dokaz je tako zelo enostaven, da ga ne bomo "sli dokazovat. Glavna ideja je, da malo gledate ta zaporedja in potem dobite neke zaklju"cke. %ok boomer
+	\end{proof}
+	
+	\begin{definition}[Cikli"cna podgrupa]
+		Naj bo $(G. \cdot)$ grupa in $a \in G$. Potem naj bo
+		\[ \langle a \rangle := \lbrace a^n: n \in \Z \rbrace \]
+		Podgrupa $(\langle a \rangle, \cdot)$ je cikli"cna podgrupa v $G$, generirana z enoto $a$.
+	\end{definition}
+	\begin{claim}
+		"Ce je $(G, \cdot)$ grupa in $a \in G$, potem je
+		\[ (\langle a \rangle, \cdot) \leq (G, \cdot) \]
+	\end{claim}
+	\begin{proof}
+		Ker je $a^1 = a$, je $a \in \langle a \rangle$, torej $\langle a \rangle \neq \emptyset$. Naj bosta sedaj $a^n, a^m \in \langle a \rangle$.
+		Ker je \[(a^n)^{-1}a^m = (a^{-1})^na^m = a^{m-n} \in \langle a \rangle \]
+		je po glavnem izreku potem $(\langle a \rangle, \cdot)$ podgrupa grupe $G$.
+	\end{proof}
+
+	\begin{ex}
+		$(\Z_{12}, +_{12})$
+		\\
+		$\langle 3 \rangle = \lbrace 3, 6, 9, 0 \rbrace$
+		\\
+		$(\lbrace 0, 3, 6, 9 \rbrace, +_{12}) \leq (\Z_{12}), +_{12})$
+	\end{ex}
+
+	\begin{definition}[Center grupe]
+		Naj bo $(G, \cdot)$ grupa. Potem je $Z(G)$ center grupe $G$ podmno"zica z elementi, ki komutirajo z vsemi elementi v $G$.
+		\[ Z(G) = \lbrace a \in G: \forall x \in G(ax=xa) \rbrace \]
+	\end{definition}
+
+	\begin{rem}
+		"Ce je $G$ abelova, je $Z(G) = G$.
+	\end{rem}
+	\begin{theorem}
+		"Ce je $(G, \cdot)$ grupa, potem je $(Z(G), \cdot) \leq (G, \cdot)$.
+	\end{theorem}
+	\begin{proof}		
+		Poka"zimo najprej, da $a \in Z(G) \implies a^{-1} \in Z(G)$. "Ce $a$ komutira z vsemi $x \in G$, potem tudi $a^{-1}$ komutira z vsemi $x \in G$:
+		\[ a^{-1} \cdot / \quad ax = xa \quad / \cdot a^{-1} \]
+		\[ a^{-1}axa^{-1} = a^{-1}xaa^{-1} \]
+		\[ (a^{-1}a)xa^{-1} = a^{-1}ax(a^{-1}) \]
+		\[ xa^{-1} = a^{-1}x \]
+		
+		Sedaj pa "se $a^{-1}b \in Z(G)$:
+		\[ (a^{-1}b)x = a^{-1}(bx) = a^{-1}(xb) = (a^{-1}x)b = (xa^{-1})b = x(a^{-1}b) \]
+		Po izreku \ref{glavniIzrekPodrgup} je to zadosti.
+	\end{proof}
+
+	% datum
 \end{document}
