@@ -52,6 +52,19 @@
 \patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
 \patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
 
+% styling
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{Box2}[2][]{
+	lower separated=false,
+	colback=white,
+	colframe=black,fonttitle=\bfseries,
+	colbacktitle=black,
+	coltitle=white,
+	enhanced,
+	attach boxed title to top left={yshift=-0.1in,xshift=0.15in},
+	boxed title style={boxrule=0pt,colframe=white,},
+	title=#2,#1}
 
 \begin{document}	
 	\title{Algebrske strukture - zapiski predavanj prof. Klav"zarja}
@@ -197,6 +210,7 @@
 	\begin{definition}[Red elementa]
 		Naj bo $(G, \cdot)$ kon"cna grupa. Tedaj je red elementa $a \in G$ najmanj"se naravno "stevilo $n$, za katerega velja
 		\[ a^n = e \]
+		"Ce je $G$ neskon"cna in za $a$ ne obstaja noben $n$ da velja $a^n = e$, je red $a$ neskon"cno.
 	\end{definition}
 	\begin{claim}
 		Red elementa je dobro definiran
@@ -311,5 +325,239 @@
 		Po izreku \ref{glavniIzrekPodrgup} je to zadosti.
 	\end{proof}
 
-	% datum
+	% 4. 5. 2021
+	\section{Cikli"cne in permutacijske grupe, izomorfizmi}
+	\begin{definition}[Cikli"cna grupa]
+		Naj bo $(G. \cdot)$ grupa in $a \in G$. "Ce velja 
+		\[ \langle a \rangle = G \]
+		potem je $G$ cikli"cna grupa, $a$ pa njen generator.
+	\end{definition}
+	
+	\begin{ex}
+		$(\Z, +)$ je cikli"cna grupa z generatorjema $1$ in $-1$.
+	\end{ex}
+
+	\begin{ex}
+		$(\Z_9, +)$ je cikli"cna grupa. $1$ je gotovo generator, obstajajo pa tudi drugi (recimo $4$). Na"steli jih bomo kasneje.
+	\end{ex}
+
+	\begin{theorem}
+		Naj bo $G$ grupa in $a \in G$.
+		
+		\begin{enumerate}
+			\item "Ce ima $a$ neskon"cen red, potem so vse potence $a^n$ med seboj paroma razli"cne.
+			\item "Ce ima $a$ kon"cen red, potem je
+			\[ \langle a \rangle = \lbrace e, a, a^2, \ldots, a^{n-1} \rbrace \]
+			Nadalje, $a^i = a^j$ velja natanko tedaj, ko $n | (i-j)$.
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}$ $
+		\begin{enumerate}
+			\item Naj ima $a$ neskon"cen red. Opazujmo $a^i$ in $a^j$, $i \neq j$. "Ce bi veljalo $a^i = a^j$, bi $a^{i-j} = e$. Ampak $i \neq j$: to bi pomenilo, da ima $a$ kon"cen red.
+		
+			\item Naj ima $a$ kon"cen red $n$.
+			\[ X := \lbrace e, a, a^2, \ldots, a^{n-1} \rbrace \]
+			Poka"zimo $\langle a \rangle = X$.
+			O"citno je $X \subseteq \langle a \rangle $, saj $a^i \in X \overset{\text{def.}}{\implies} a^i \in \langle a \rangle $.
+			Poka"zimo torej, da $ \langle a \rangle \subseteq X$, oziroma:
+			\[ a^k, k \in \Z \implies a^k \in X \]
+			Po izreku o deljenju:
+			\[ k = p \cdot n+r \quad 0 \leq r < n \]
+			\[ a^k = a^{p \cdot n+r} = a^{pn} \cdot a^r = (a^n)^p \cdot a^r = e^p \cdot a^r = a^r \]
+			ampak $ 0 \leq r < n $, torej $a^k = a^r \in X $
+			
+			\item $a^i = a^j \iff n | (i-j)$:
+			\[ i-j = p \cdot n + r \]
+			($\Rightarrow$) Naj bo $a^i = a^j$. Tedaj
+			\[ e = a^{i-j} = a^{p \cdot n + r} = a^p \cdot a^r = a^r \quad r < n \]
+			Ker je red $a$ enak $n$ in je $r < n$, velja $r = 0$. Torej $i-j = p \cdot n$, oziroma $n | (i-j)$. \\
+			
+			($\Leftarrow$) Naj $n | (i-j)$.
+			\[ i-j = p \cdot n + r \quad (0 \leq r < n) \implies r = 0 \implies i-j=p \cdot n\]
+		\end{enumerate}
+		
+		% todo: missing some stuff here
+	\end{proof}
+
+	\begin{conseq}
+		Naj bo $G$ grupa in $a \in G$ reda $n$.  %todo: redacted section
+	\end{conseq}
+	\begin{proof}
+		\[ a^0 = e = a^k \]
+		\[ 0, k \Rightarrow n | (k-0) \Rightarrow n | k \]
+	\end{proof}
+
+	\begin{theorem}
+		Naj bo $G$ cikli"cna grupa in $a \in G$ element reda $n$. Potem je $G = \langle a^k \rangle$ natanko tedaj, ko je $(n,k) = 1$
+	\end{theorem}
+	\begin{ex}
+		\[ (\Z_9, +) = \langle 1 \rangle = \langle 9 \rangle \]
+		\[ \Z_9 = \langle 1^k \rangle \iff \langle k,9 \rangle = 1 \]
+		Torej generatorji so $1, 2, 4, 5, 7, 8$.
+	\end{ex}
+
+	\subsection{Permutacijske grupe}
+	\begin{definition}[Permutacija mno"zice $A$]
+		Je bijekcija $A \rightarrow A$.
+	\end{definition}
+	%$\Pi$ torej interpretiramo kot $\Pi: [n] \rightarrow [n]$
+	
+	\begin{definition}[Permutacijska grupa]
+		Je mno"zica permutacij, ki za komponiranje preslikav tvorijo grupo.
+	\end{definition}
+	\begin{definition}[Simetri"cna grupa $S_n$]
+		"Ce vzamemo vse permutacije mno"zice $[n]$, dobimo simetri"cno grupo $S_n$. Ta grupa ni abelova.
+	\end{definition}
+	\begin{claim}
+		$|S_n| = n!$
+	\end{claim}
+		
+	\begin{claim}
+		Vsako permutacijo lahko enoli"cno (do vrstnega reda faktorjev natan"cno) zapi"semo kot produkt disjunktnih ciklov.
+		% proof: go fuck yourself
+	\end{claim}
+	\begin{proof}
+		Lmao you thought
+	\end{proof}
+	\begin{claim}
+		Vsako permutacijo lahko zapi"semo kot produkt transpozicij.
+		% proof: go fuck yourself
+	\end{claim}
+
+	\begin{claim}
+		Neko permutcijo lahko zapi"semo bodisi samo kot produkt sodo ali liho "stevilo transpozicij. Pravimo, da je permutacija liha ali soda.
+	\end{claim}
+
+	\begin{definition}[Alternirajo"ca grupa $A_n$]
+		Je grupa vseh sodih permutacij mno"zice $[n]$.
+	\end{definition}
+	Dokaz da je to grupa lahko naredite sami.
+	
+	\begin{theorem}
+		"Ce je $n > 1$, potem je $|A_n| = \frac{n!}{2}$
+	\end{theorem}
+	\begin{proof}
+		Vzemimo poljubno liho permutacijo $\Pi$.
+		\[ \underset{\text{liha}}{\Pi} \quad \underset{\text{injektivno}}{\rightarrow} \quad \underset{\text{soda}}{(12)\cdot\Pi} \]
+		\[ \forall \Pi, \Sigma \text{ lihi: } \Pi \neq \Sigma \implies (12)\cdot\Pi \neq (12)\cdot\Sigma \]
+		"Stevilo sodih permutacij $\geq$ "stevilo lihih permutacij. Z obratnim razmislekom ugotovimo, da je "stevilo sodih $=$ "stevilo lihih permutacij.
+	\end{proof}
+
+	\subsection{Izomorfizmi grup}
+	\begin{definition}[Homomorfizem]
+		Naj bosta $(G, \cdot)$ in $(H, *)$ grupe. Preslikava
+		$\alpha G \rightarrow H$
+		je homomorfizem, "ce
+		\[ \forall a, b \in G: \alpha (a \cdot b) = \alpha(a) * \alpha (b) \]
+	\end{definition}
+	\begin{definition}[Avtomorfizem]
+		Homomorfizem $G \rightarrow G$.
+	\end{definition}
+	\begin{definition}[Izomorfizem]
+		Bijektivni homomorfizem.
+	\end{definition}
+	\begin{definition}[Izomorfni grupi]
+		Grupi, med katerima obstaja izomorfizem.
+	\end{definition}
+
+	\begin{Box2}{Proposition: Loi image}
+		Soit $X : \Omega \longrightarrow E$  une variable aléatoire et $f : E \longrightarrow F$ . La loi de la variable aléatoire $Y=f\circ  X$
+		est donnée par
+		\[\forall y \in f\left(X\left(\Omega \right) \right),\quad \mathbb{P}\left(Y=y\right)=\sum_{x\in f^{-1}\left(\{y\} \right)}\mathbb{P}\left(X=x \right).  \]
+	\end{Box2}
+
+	\begin{theorem}[Cayleyev]
+		Vsaka grupa je izomorfna neki permutacijski grupi.
+	\end{theorem}
+	\begin{proof}
+		Naj bo $G$ poljubna grupa in $g \in G$. Definirajmo $T_g: G \rightarrow G$:
+		\[ T_g(x) = gx \]
+		$T_g$ je permutacija mno"zice G. \\
+		$H = \lbrace T_g: g \in G \rbrace$ je grupa za komponiranje. \\
+		$H \cong G$
+	\end{proof}
+
+	\begin{claim}
+		"Ce je $\alpha: G \rightarrow H$ izomorfizem grup, potem (med drugim) veljajo naslednje lastnosti:
+		\begin{itemize}
+			\item $\alpha$ preslika enoto $G$ v enoto $H$.
+			\item "ce je $a \in G, a \in \Z \implies \alpha(a^n) = (\alpha(a))^n$
+			\item "ce $a$ in $b$ komutirata v $G$, potem $\alpha(a)$ in $\alpha(b)$ komutirata v $H$.
+			\item $G$ je abelova $\iff$ $H$ je abelova.
+			\item $G$ je cikli"cna $\iff$ $H$ je cikli"cna.
+			\item "ce je $K \leq G$, potem je $\alpha(K) = \lbrace \alpha(k): k \in K \rbrace \leq H$
+		\end{itemize}
+	\end{claim}
+
+	\section{Odseki in pogrupe edinke}
+	Naj bo $G$ grupa in $H \subseteq G$. Za $a \in G$ definirajmo:	
+	\begin{definition}[Levi odsek $aH$]
+		\[ aH = \lbrace ak: k \in H \rbrace \]
+	\end{definition}
+	\begin{definition}[Desni odsek $Ha$]
+		\[ Ha = \lbrace ka: k \in H \rbrace \]
+	\end{definition}
+
+	\begin{ex}
+		$G = S_3$. $H = \lbrace (1), (2) \rbrace $
+		\begin{itemize}
+			\item $(1)H = H$
+			\item $(12)H = \lbrace (12)(1), (12)(12) \rbrace = \lbrace (12),(1)(2)(3)\rbrace = H $
+			\item $(13)H = \lbrace (13)(1), (13)(12) \rbrace = \lbrace (13),(123) \rbrace $
+			\item $(23)H = \lbrace (23)(1), (23)(12)\rbrace = \lbrace (23),(123) \rbrace $
+			\item $(123)H = \lbrace (123)(1), (123)(12) \rbrace = \lbrace (123),(13) \rbrace $
+			\item $(132)H = \lbrace (132)(1), (132)(12) \rbrace = \lbrace (132),(23) \rbrace $
+		\end{itemize}
+	\end{ex}
+	\begin{ex}
+		$G = (\Z_{10}, +)$. $H = (\lbrace 0, 2, 4, 6, 9 \rbrace, +)$
+		\begin{itemize}
+			\item $0+H = 2 + H = 4 + H = 6 + H = 8 + H$
+			\item $1+H = 3 + H = 5 + H = 7 + H = 9 + H$
+		\end{itemize}
+	\end{ex}
+	Ugotovitve: opazimo, da odseki niso nujno podgrupe $H$. Lahko se zgodi, da je $aH = bH$ za $a \neq b$ ($H(13) = (13)H$). $aH \neq Ha$ je povsem mo"zno.
+	
+	\begin{claim}[Najpomembnej"se lastnosti odsekov]
+		Naj bo $H$ poljubna podgrupa grupe $G$, $a,b \in G$. Tedaj veljajo naslednje lastnosti:
+		\begin{enumerate}
+			\item $a \in aH \land a \in Ha$
+			\item $aH = H \iff a \in H \iff Ha = H$
+			\item bodisi $aH = Ha$ bodisi $aH \cap Ha = \emptyset$
+			\item $aH = bH \iff a^{-1}b \in H \iff Ha = Hb$
+			\item $|aH| = |bH| \land |Ha| = |Hb|$
+			\item $aH = Ha \iff H = aHa^{-1}$
+			\item $aH \leq G \iff a \in H \iff Ha \leq G$
+		\end{enumerate}
+	\end{claim}
+	\begin{proof}
+		Dokazali bomo prve tri trditve, ostale si boste pa sami.\\
+		\begin{enumerate}
+			\item $a \in aH$: $e \in H \implies a\cdot e \in aH$
+			\item $aH = H \iff a \in H$:
+			
+				($\Rightarrow$) Naj velja $aH = H$. Ker je $a \in aH$ (po 1.) in ker je $aH = H$, je $a \in H$.
+				
+				($\Leftarrow$) Naj bo $a \in H$. Doka"zimo $aH = H$. \\
+				Najprej $aH \subseteq H$: Naj bo $x \in aH$. Torej je $x = ak$ za nek $k \in H$.
+				\[ a \in H, k \in H \implies ak \in H \]
+				
+				Sedaj "se $H \subseteq aH$: naj bo $k \in H$. Ker je $a \in H$, je \[ a^{-1} \in H \implies a^{-1}k \in H \]
+				\[a(a^{-1}k) = k \in aH \]
+			\item "Ce sta odseka disjunktna, ni kaj dokazovati. Recimo, da obstaja $x \in aH \cup bH$. $x \in aH \implies x = ak$ za nek $k \in H$. $x \in bH \implies x = bk'$ za nek $k' \in H$. Torej $ak = bk'$.
+			\[ a = bk'k^{-1} \]
+			\[ aH = (bk'k^{-1})H = (bk')(k^{-1}H) \]
+			To"cka 2 pravi, da $k^{-1}H = H$ (ker je $k^{-1} \in H$).
+			\[ aH = (bk')H = b(k'H) = bH \]
+		\end{enumerate}
+	\end{proof}
+
+	"Ce zdru"zimo lastnosti 1, 2 in 5, ugotovimo, da levi odseki po podgrupi $H$ razdelijo grupo $G$ v (paroma disjunktne) bloke iste mo"ci.
+	
+	\begin{ex}
+		$G = (\R^2, +)$. $H = $ premica skozi izhodi"s"ce.
+		
+		\[ (a,b) \in \R^2: (a,b)H = (a,b)+H = \lbrace (a+x, b+y): (x,y) \in H \rbrace \]
+		Desni odseki po podgrupi $H$ (premica $p$) nam razdelijo ravnino v premice, ki so vzporedne s $p$.
+	\end{ex}
 \end{document}
