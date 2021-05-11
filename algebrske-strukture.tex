@@ -518,7 +518,7 @@
 	\end{ex}
 	Ugotovitve: opazimo, da odseki niso nujno podgrupe $H$. Lahko se zgodi, da je $aH = bH$ za $a \neq b$ ($H(13) = (13)H$). $aH \neq Ha$ je povsem mo"zno.
 	
-	\begin{claim}[Najpomembnej"se lastnosti odsekov]
+	\begin{claim}[Najpomembnej"se lastnosti odsekov]\label{lastnosti_odsekov}
 		Naj bo $H$ poljubna podgrupa grupe $G$, $a,b \in G$. Tedaj veljajo naslednje lastnosti:
 		\begin{enumerate}
 			\item $a \in aH \land a \in Ha$
@@ -560,4 +560,243 @@
 		\[ (a,b) \in \R^2: (a,b)H = (a,b)+H = \lbrace (a+x, b+y): (x,y) \in H \rbrace \]
 		Desni odseki po podgrupi $H$ (premica $p$) nam razdelijo ravnino v premice, ki so vzporedne s $p$.
 	\end{ex}
+
+	% 11. 05. 2021
+	% todo: beginning redacted
+	\begin{theorem}[Lagrangev]
+		Mo"c podgrupe deli mo"c grupe. "Stevilo razli"cnih levih (in desnih) odsekov po $H$ je $\frac{|G|}{|H|}$.
+	\end{theorem}
+	\begin{proof}
+		Naj bodo $a_1H, \ldots, a_kH$ paroma razli"cni levi odseki podgrupe $H$. Tedaj velja:
+		\[ |G| = |a_1H \cup \ldots \cup a_kH| \]
+		To nam zagotavlja prva lastnost trditve \ref{lastnosti_odsekov} ($a \in aH$).
+		\[ = |a_1H| + \ldots + |a_kH| \]
+		(po lastnosti 3)
+		\[ = k \cdot |H| \]
+		(po lastnosti 5)
+		\[ \implies k = \frac{|G|}{|H|} \]
+	\end{proof}
+
+	\begin{conseq}\label{red_deli_moc}
+		Red elementa kon"cne grupe deli mo"c grupe.
+	\end{conseq}
+	\begin{proof}
+		Vzemimo poljuben element $a \in G$ reda $n$.
+		\[ \langle a \rangle = \lbrace e, a, \ldots, a^{n-1} \rbrace \leq G \overset{\text{lagrange}}{\implies} n = |\langle a \rangle| \text{ deli } |G| \]
+	\end{proof}
+
+	\begin{conseq}
+		Grupa pra"stevilske mo"ci je cikli"cna.
+	\end{conseq}
+	\begin{proof}
+		\[ |\langle a \rangle| \text{ deli } p \qquad |\langle a \rangle| \geq 2 \]
+		Od tod sledi, da $|\langle a \rangle| = p$, torej $\langle a \rangle = G$.
+	\end{proof}
+
+	\begin{conseq}\label{a_na_moc}
+		"Ce je $a$ element kon"cne grupe $G$, velja $a^{|G|} = e$.
+	\end{conseq}
+	\begin{proof}
+		Po posledici \ref{red_deli_moc} $n$ deli $|G|$, torej $|G| = k \cdot n$.
+		\[ a^{|G|} = a^{k \cdot n} = (a^n)^p = e \]
+	\end{proof}
+
+	\begin{conseq}[Mali Fermatov izrek]
+		"Ce je $p$ pra"stevilo in $a \in \Z$, potem je
+		\[ a^p \operatorname{mod} p = a \operatorname{mod} p \]
+	\end{conseq}
+	\begin{proof}
+		$a = k \cdot p + r$, kjer $0 \leq r < p$.
+		Naj bo $r = 0$: $a \operatorname{mod} p = 0$, $a^p \operatorname{mod} p = 0$.
+		Naj bo $1 \leq r < p$: poglejmo grupo
+		\[ G := (\Z_p - \lbrace 0 \rbrace, \cdot) \qquad |G| = p-1 \]
+		Po posledici \ref{a_na_moc} velja $r^{p-1} = 1$, torej $r^p = r$.
+	\end{proof}
+
+	\subsection{Podgrupe edinke in faktorske grupe}
+	\begin{definition}[Podgrupa edinka]
+		Podgrupa $H$ je edinka, "ce velja
+		\[ \forall a \in G: (aH = Ha) \]
+		Ozna"cimo $H \triangleleft G$.
+	\end{definition}
+
+	Po to"cki 6 iz lastnosti odsekov (\ref{lastnosti_odsekov}) je torej
+	\[ H \triangleleft G \iff H = aHa^{-1} \quad \forall a \in G \]
+	
+	\begin{claim}
+		$aHa^{-1} \leq G$
+	\end{claim}
+	\begin{proof}
+		\[ x,y \in aHa^{-1} \implies x^{-1}y \in aHa^{-1} \]
+		\[ x = aka^{-1} \quad \text{za nek }k \in H \]
+		\[ y = ak'a^{-1} \quad \text{za nek }k' \in H \]
+		
+		\[x^{-1}y = (aka^{-1})^{-1}(ak'a^{-1}) = (ak^{-1}a^{-1})(ak'a^{-1}) = a(k^{-1}k')a^{-1} \implies x^{-1}y \in aHa^{-1} \]
+	\end{proof}
+
+	\begin{ex}
+		\[a = e \quad eHe^{-1} = \lbrace eke^{-1}: k\in H \rbrace = \lbrace k: k \in H \rbrace = H \]
+	\end{ex}
+	
+	\begin{definition}[Konjugirana grupa]
+		$aHa^{-1}$ je konjugirana grupa v $G$
+	\end{definition}
+	\begin{claim}
+		$H \triangleleft G$, "ce je to edina mo"zna konjugirana grupa v $G$.
+	\end{claim}
+
+	\begin{definition}[Enostavna grupa]
+		Je grupa, katere edini edinki sta $G$ in $\lbrace e \rbrace$.
+	\end{definition}
+
+	Osrednji razlog za pomembnost edink je to, da lahko iz odsekov edink tvorimo grupo.
+	
+	Naj bo $G$ grupa in $H \leq G$. Definirajmo mno"zico odsekov
+	\[ G / H := \lbrace aH: a \in G \rbrace \]
+	in vpeljimo operacijo
+	\[ (aH)*(bH) = (ab)H \]
+	\begin{theorem}
+		"Ce je $H \triangleleft G$, potem je $(G / H, *)$ grupa.
+	\end{theorem}
+	\begin{proof}
+		Vse lastnosti grupe zelo lahko sledijo iz definicije odseka in operacije med njimi.
+		\begin{itemize}
+			\item enota: $eH$
+			\item inverz: $a^{-1}H$
+			\item $\ldots$
+		\end{itemize}
+		Bistvo je, da poka"zemo, da je $*$ dobro definirana, t.j. da je rezultat neodvisen od izbire elementa iz odseka.
+		
+		Naj bosta $a$ in $a'$ iz istega odseka ($aH = a'H$) ter $b$ in $b'$ iz istega odseka ($bH = b'H$). Pokazati moramo, da je $(aH)*(bH)  = (a'H)*(b'H)$.
+		
+		\[ a' \in aH \implies a' = ak' \quad k' \in H \]
+		\[ b' \in bH \implies b' = bk'' \quad k'' \in H \]
+		\[ (a'H)*(b'H) \overset{def}{=} (a'b')H = ak'bk''H = ak'b(k''H) \]
+		\[ ak'(bH) \overset{edinka}{=} ak'(Hb) = a(k'H)b \overset{k' \in H}{=} aHb \]
+		\[ a(Hb) \overset{edinka}{=} a(bH) \overset{def.}{=} (aH)*(bH) \]
+	\end{proof}
+
+	\begin{definition}[Faktorska grupa grupe $G$ po edinki $H$]
+		Grupa $(G / H, *)$ po zgoraj definiranih operacijah $*$ in $/$.
+	\end{definition}
+
+	\begin{theorem}
+		"Ce je $G$ grupa in $G/Z(G)$ cikli"cna grupa, potem je $G$ abelova.
+	\end{theorem}
+	\begin{proof}
+		Dokaz.
+	\end{proof}
+
+	\section{Kolobarji in polja}
+	\begin{rem}
+		Hi, author here. V naslednjem razdelku spu"s"cam nekatere dokaze in primere, ker so bodisi zelo trivialni, ali pa smo jih "ze videli pri Linearni algebri. Spu"s"ceni dokazi so ozna"ceni z ``Redacted''.
+		Author out.
+	\end{rem}
+
+	\begin{definition}[Kolobar]
+		Mno"zica z 2 operacijama $(R, +, \cdot)$ \\
+		kjer je $(R, +)$ abelova grupa in $(R, \cdot)$ polgrupa.
+		
+		Velja distributivnost mno"zenja prek se"stevanja:
+		\[ a(b+c) = ab + ac \quad \land \quad (a+b)c = ac + bc \]
+		% kokoid
+	\end{definition}
+	
+	\begin{definition}[Komutativen kolobar]
+		Kolobar, v katerem je mno"zenje komutativno.
+	\end{definition}
+	\begin{ex}
+		$2\Z$ soda cela "stevila.
+	\end{ex}
+	\begin{definition}[Kolobar z enoto]
+		Kolobar, v katerem obstaja enota za mno"zenje.
+	\end{definition}
+	\begin{ex}
+		$M_2(\Z)$ 2x2 matrike z elementi iz $\Z$.
+	\end{ex}
+	\begin{definition}[Kokoid]
+		Komutativen kolobar z identiteto (enoto).
+	\end{definition}
+
+	\begin{definition}[Direktna vsota]
+		\[ (R, +_{R}, \cdot_{R}) \oplus (S, +_{S}, \cdot_{S}) := (R \times S, +_{R \times S}, \cdot_{R \times S}) \]
+		\[ (r,s) +_{R \times S} (r',s') := (r+_{R}r', s+_{S}s') \]
+		\[ (r,s) \cdot_{R \times S} (r',s') := (r \cdot_{R} r', s \cdot_{S} s') \]
+	\end{definition}
+	\begin{theorem}
+		"Ce sta $R$ in $S$ kolobarja, je $R \oplus S$ kolobar. "Ce imata enoto, jo ima tudi produkt. "Ce sta komutativna, je tak tudi produkt.
+	\end{theorem}
+	\begin{proof}
+		Z enostavnim izra"cunom.
+	\end{proof}
+	
+	\begin{rem}
+		Konstrukcijo lahko raz"sirimo na direktne vsote kon"cnega "stevila kolobarjev: $R_1 \oplus R_2 \oplus \ldots R_n$.
+		To je v bistvu posplo"sitev $\R^n$.
+	\end{rem}
+	
+	\subsection{Lastnosti kolobarjev}	
+	\begin{itemize}
+		\item Nevtralni element za $+$, torej $0$, je enoli"cen.
+		\item "Ce je $R$ kolobar z enoto $1$, je tudi ta enoli"cna.
+	\end{itemize}
+	\begin{theorem}
+		Naj bo $R$ kolobar in $a,b \in R$. Potem velja:
+		\begin{enumerate}
+			\item $0 \cdot a = a \cdot 0 = 0$
+			\item $(-a) \cdot b = a \cdot (-b) = -(a \cdot b)$
+			\item $(-a) \cdot (-b) = a \cdot b$
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		Redacted.
+	\end{proof}
+
+	\begin{conseq}
+		"Ce ima kolobar enoto $1$, velja $(-1) \cdot a = -(1 \cdot a) = -a$
+	\end{conseq}
+
+	\subsection{Podkolobarji}
+	\begin{definition}
+		Naj bo $R$ kolobar in $S \subseteq R$. "Ce je $S$ kolobar za isti operaciji kot jih ima $R$, je $S$ podkolobar kolobarja $R$.
+	\end{definition}
+	\begin{ex}
+		$\Z \subseteq \Q$
+	\end{ex}
+	\begin{ex}
+		$\Q \subseteq \R$
+	\end{ex}
+	\begin{ex}
+		$n \geq 2 \quad n\Z \subseteq \Z$
+	\end{ex}
+
+	\begin{theorem}
+		$S$ je podkolobar $R$ natanko tedaj, ko velja vse izmed:
+		\begin{itemize}
+			\item $S \subseteq R$
+			\item $0 \in S$
+			\item $\forall a,b \in S: a-b \in S$
+			\item $\forall a,b \in S: a-b \in S$
+		\end{itemize}
+	\end{theorem}
+	\begin{proof}
+		Redacted.
+	\end{proof}
+
+	\begin{definition}[Center kolobarja]
+		Je mno"zica tistih elementov, ki komutirajo z vsemi elementi.
+		\[ \lbrace x \in R: ax = xa \quad \forall x \in R \rbrace \]
+	\end{definition}
+	\begin{claim}
+		Center kolobarja je njegov podkolobar.
+	\end{claim}
+	\begin{proof}
+		Redacted.
+	\end{proof}
+
+	%\subsection{Delitelji ni"ca in celi kolobarji}
+	%\subsection{Polja}
+	%\subsection{Podpolja}
+	%\subsection{Karakteristika kolobarja}
+	%\subsection{Ideali}
 \end{document}
