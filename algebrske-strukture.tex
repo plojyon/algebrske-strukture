@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[11pt, a4paper]{article}
 
 % General document formatting
 \usepackage[margin=0.7in]{geometry}
@@ -26,11 +26,12 @@
 
 % theorems
 \theoremstyle{definition}
-\newtheorem{definition}{Definicija}[section]
-\newtheorem{lemma}{Lema}[section]
-\newtheorem{conseq}{Posledica}[section]
-\newtheorem{claim}{Trditev}[section]
-\newtheorem{theorem}{Izrek}[section]
+\newtheorem{counter}{Counter}[section] % not for use
+\newtheorem{defn}[counter]{Definicija}
+\newtheorem{lemma}[counter]{Lema}
+\newtheorem{conseq}[counter]{Posledica}
+\newtheorem{claim}[counter]{Trditev}
+\newtheorem{theorem}[counter]{Izrek}
 %%
 \theoremstyle{remark}
 \newtheorem*{ex}{Primer}
@@ -39,7 +40,7 @@
 % I like my squares DARK
 \renewcommand\qedsymbol{$\blacksquare$}
 
-% convenience purposes
+% common number sets for convenience purposes
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -52,40 +53,26 @@
 \patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
 \patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
 
-% styling
-\usepackage[most]{tcolorbox}
-
-\newtcolorbox{Box2}[2][]{
-	lower separated=false,
-	colback=white,
-	colframe=black,fonttitle=\bfseries,
-	colbacktitle=black,
-	coltitle=white,
-	enhanced,
-	attach boxed title to top left={yshift=-0.1in,xshift=0.15in},
-	boxed title style={boxrule=0pt,colframe=white,},
-	title=#2,#1}
-
 \begin{document}	
 	\title{Algebrske strukture - zapiski predavanj prof. Klav"zarja}
 	\author{Yon Ploj}
 	\date{2. semester 2021}
 	\maketitle
 	
-	%\tableofcontents
-	%\vspace{2cm}
+	\tableofcontents
+	\vspace{2cm}
 
 	% 13. 04. 2021
 	\subsection{Lastnosti operacij}
-	\begin{definition}[Asociativnost]
+	\begin{defn}[Asociativnost]
 		\[ (a \cdot b) \cdot c = a \cdot (b \cdot c) \]
-	\end{definition}
-	\begin{definition}[Komutativnost]
+	\end{defn}
+	\begin{defn}[Komutativnost]
 		\[ a \cdot b = b \cdot a \]
-	\end{definition}
-	\begin{definition}[Enota]
+	\end{defn}
+	\begin{defn}[Enota]
 		\[ a \cdot e = e \cdot a = a \]
-	\end{definition}
+	\end{defn}
 	\begin{theorem}
 		Enota je enoli"cna.
 	\end{theorem}
@@ -96,9 +83,9 @@
 		Sledi, da je $e_1 = e_2$.
 	\end{proof}
 
-	\begin{definition}[Inverz / Obratna vrednost $a$]
+	\begin{defn}[Inverz / Obratna vrednost $a$]
 		\[ a \cdot a^{-1} = a^{-1} \cdot a = e \]
-	\end{definition}
+	\end{defn}
 	\begin{rem}
 		Inverz abstraktnega mno"zenja ozna"cujemo z $a^{-1}$, inverz abstraktnega se"stevanja pa z $-a$.
 	\end{rem}
@@ -111,56 +98,56 @@
 	\end{proof}
 
 	\section{Algebrske strukture}
-	\begin{definition}[Notranja operacija mno"zice $A$]
+	\begin{defn}[Notranja operacija mno"zice $A$]
 		\[ f: A \times A \rightarrow A\]
 		Z infiksno notacijo ozna"cujemo $f(a,b)$ kot $a \cdot b$ ali $ab$
-	\end{definition}
-	\begin{definition}[Algebrska struktura]
+	\end{defn}
+	\begin{defn}[Algebrska struktura]
 		Mno"zica z vsaj eno notrajno operacijo
-	\end{definition}
-	\begin{definition}[Grupoid]
+	\end{defn}
+	\begin{defn}[Grupoid]
 		Mno"zica z notrajno operacijo. $(M, \cdot)$
-	\end{definition}
-	\begin{definition}[Polgrupa]
+	\end{defn}
+	\begin{defn}[Polgrupa]
 		Asociativen grupoid.
-	\end{definition}
-	\begin{definition}[Monoid]
+	\end{defn}
+	\begin{defn}[Monoid]
 		Polgrupa z enoto.
-	\end{definition}
-	\begin{definition}[Grupa]
+	\end{defn}
+	\begin{defn}[Grupa]
 		Monoid, kjer je vsak element obrnljiv.
-	\end{definition}
-	\begin{definition}[Abelova grupa]
+	\end{defn}
+	\begin{defn}[Abelova grupa]
 		Komutativna grupa.
-	\end{definition}
+	\end{defn}
 
 	\begin{comment}
-	\begin{definition}[Kolobar]
+	\begin{defn}[Kolobar]
 		Mno"zica z 2 operacijama $(M, +, \cdot)$ \\
 		kjer je $(M, +)$ abelova grupa in $(M, \cdot)$ monoid.
 		% kokoid
-	\end{definition}
-	\begin{definition}[Obseg]
+	\end{defn}
+	\begin{defn}[Obseg]
 		Kolobar, kjer so neni"celni elementi grupa za $\cdot$
-	\end{definition}
-	\begin{definition}[Polje]
+	\end{defn}
+	\begin{defn}[Polje]
 		Komutativni obseg
-	\end{definition}
-	\begin{definition}[Modul]
+	\end{defn}
+	\begin{defn}[Modul]
 		Kolobar z abelovo grupo $((M, +, \cdot), (V, \oplus))$
-	\end{definition}
-	\begin{definition}[Vektorski prostor]
+	\end{defn}
+	\begin{defn}[Vektorski prostor]
 		Modul, kjer je $(M, +, \cdot)$ polje.
-	\end{definition}
+	\end{defn}
 	\end{comment}
 	
 	\subsection{Mno"zica $\Z_n$}
-	\begin{definition}[Kongruenca]
+	\begin{defn}[Kongruenca]
 			$a$ in $b$ sta kongruentna po modulu $m$ ntk. obstajajo $p,q,r \in \Z_n$, da velja:
 			\[ a = p*m + r \]
 			\[ b = q*m + r \]
 			\[ r < p \quad \land \quad r < q \]
-	\end{definition}
+	\end{defn}
 	Relacija kongruence je ekvivalen"cna, zato razdeli $\Z_n$ na ekvivalen"cne razrede ostankov: $\lbrace 0, 1, \ldots, n-1 \rbrace$
 	
 	\begin{rem}
@@ -177,7 +164,7 @@
 	
 	% 20. 4. 2021 (blaze it)
 	\section{Grupe}
-	\begin{definition}[Cayleyeva tabela]
+	\begin{defn}[Cayleyeva tabela]
 		Tabela, ki prikazuje definicijo operacije v kon"cnem monoidu.
 		$$
 		\bbordermatrix{
@@ -190,7 +177,7 @@
 				z & z & y & x & s & r & i \cr
 		}
 		$$
-	\end{definition}
+	\end{defn}
 	\begin{rem}
 		V Cayleyevi tabeli grupe so vsi elementi v vsakem stolpcu in vsaki vrstici med seboj razli"cni (Cayleyeva tabela je latinski kvadrat reda $n$). To sledi iz izreka \ref{praviloKrajsanja}
 	\end{rem}
@@ -207,11 +194,11 @@
 		\[ b = c \]
 	\end{proof}
 
-	\begin{definition}[Red elementa]
+	\begin{defn}[Red elementa]
 		Naj bo $(G, \cdot)$ kon"cna grupa. Tedaj je red elementa $a \in G$ najmanj"se naravno "stevilo $n$, za katerega velja
 		\[ a^n = e \]
 		"Ce je $G$ neskon"cna in za $a$ ne obstaja noben $n$ da velja $a^n = e$, je red $a$ neskon"cno.
-	\end{definition}
+	\end{defn}
 	\begin{claim}
 		Red elementa je dobro definiran
 	\end{claim}
@@ -228,12 +215,12 @@
 	\end{rem}
 	
 	\section{Podgrupe}
-	\begin{definition}[Podgrupa]
+	\begin{defn}[Podgrupa]
 		Naj bo $(G, \cdot)$ grupa. Tedaj je $H \subseteq G$ podgrupa, "ce je $(H, \cdot)$ tudi grupa. Pri tem je operacija obakrat ista. Ozna"cimo $H \leq G$.
-	\end{definition}
-	\begin{definition}[Prava podgrupa]
+	\end{defn}
+	\begin{defn}[Prava podgrupa]
 		Naj bo $(H, \cdot)$ podrgupa $(G, \cdot)$. "Ce je $H \subset G \text{ (torej } H \neq G$), je $H$ prava podgrupa $G$. Ozna"cimo $H < G$.
-	\end{definition}
+	\end{defn}
 	
 	\begin{ex}[Trivialna podgrupa]
 		Za vsako grupo $G$ velja $G \leq G$ in $\lbrace e \rbrace \leq G$.
@@ -279,11 +266,11 @@
 		Dokaz je tako zelo enostaven, da ga ne bomo "sli dokazovat. Glavna ideja je, da malo gledate ta zaporedja in potem dobite neke zaklju"cke. %ok boomer
 	\end{proof}
 	
-	\begin{definition}[Cikli"cna podgrupa]
+	\begin{defn}[Cikli"cna podgrupa]
 		Naj bo $(G. \cdot)$ grupa in $a \in G$. Potem naj bo
 		\[ \langle a \rangle := \lbrace a^n: n \in \Z \rbrace \]
 		Podgrupa $(\langle a \rangle, \cdot)$ je cikli"cna podgrupa v $G$, generirana z enoto $a$.
-	\end{definition}
+	\end{defn}
 	\begin{claim}
 		"Ce je $(G, \cdot)$ grupa in $a \in G$, potem je
 		\[ (\langle a \rangle, \cdot) \leq (G, \cdot) \]
@@ -302,10 +289,10 @@
 		$(\lbrace 0, 3, 6, 9 \rbrace, +_{12}) \leq (\Z_{12}), +_{12})$
 	\end{ex}
 
-	\begin{definition}[Center grupe]
+	\begin{defn}[Center grupe]
 		Naj bo $(G, \cdot)$ grupa. Potem je $Z(G)$ center grupe $G$ podmno"zica z elementi, ki komutirajo z vsemi elementi v $G$.
 		\[ Z(G) = \lbrace a \in G: \forall x \in G(ax=xa) \rbrace \]
-	\end{definition}
+	\end{defn}
 
 	\begin{rem}
 		"Ce je $G$ abelova, je $Z(G) = G$.
@@ -327,11 +314,11 @@
 
 	% 4. 5. 2021
 	\section{Cikli"cne in permutacijske grupe, izomorfizmi}
-	\begin{definition}[Cikli"cna grupa]
+	\begin{defn}[Cikli"cna grupa]
 		Naj bo $(G. \cdot)$ grupa in $a \in G$. "Ce velja 
 		\[ \langle a \rangle = G \]
 		potem je $G$ cikli"cna grupa, $a$ pa njen generator.
-	\end{definition}
+	\end{defn}
 	
 	\begin{ex}
 		$(\Z, +)$ je cikli"cna grupa z generatorjema $1$ in $-1$.
@@ -373,18 +360,17 @@
 			Ker je red $a$ enak $n$ in je $r < n$, velja $r = 0$. Torej $i-j = p \cdot n$, oziroma $n | (i-j)$. \\
 			
 			($\Leftarrow$) Naj $n | (i-j)$.
-			\[ i-j = p \cdot n + r \quad (0 \leq r < n) \implies r = 0 \implies i-j=p \cdot n\]
+			\[ i-j = p \cdot n + r \quad (0 \leq r < n) \overset{n | (i-j)}{\implies} r = 0 \implies i-j=p \cdot n\]
+			\[ a^i = a^{p \cdot n + j} = (a^n)^p \cdot a^j = a^j \]
 		\end{enumerate}
-		
-		% todo: missing some stuff here
 	\end{proof}
 
 	\begin{conseq}
-		Naj bo $G$ grupa in $a \in G$ reda $n$.  %todo: redacted section
+		Naj bo $G$ grupa in $a \in G$ reda $n$. "Ce $a^k = e$, potem $n | k$.
 	\end{conseq}
 	\begin{proof}
 		\[ a^0 = e = a^k \]
-		\[ 0, k \Rightarrow n | (k-0) \Rightarrow n | k \]
+		Poprej vemo, da $a^i = a^j \iff n | (i-j)$. Vstavimo $i=k$, $j=0$, dobimo $n | (k-0)$, torej $n | k$.
 	\end{proof}
 
 	\begin{theorem}
@@ -397,17 +383,17 @@
 	\end{ex}
 
 	\subsection{Permutacijske grupe}
-	\begin{definition}[Permutacija mno"zice $A$]
+	\begin{defn}[Permutacija mno"zice $A$]
 		Je bijekcija $A \rightarrow A$.
-	\end{definition}
+	\end{defn}
 	%$\Pi$ torej interpretiramo kot $\Pi: [n] \rightarrow [n]$
 	
-	\begin{definition}[Permutacijska grupa]
+	\begin{defn}[Permutacijska grupa]
 		Je mno"zica permutacij, ki za komponiranje preslikav tvorijo grupo.
-	\end{definition}
-	\begin{definition}[Simetri"cna grupa $S_n$]
+	\end{defn}
+	\begin{defn}[Simetri"cna grupa $S_n$]
 		"Ce vzamemo vse permutacije mno"zice $[n]$, dobimo simetri"cno grupo $S_n$. Ta grupa ni abelova.
-	\end{definition}
+	\end{defn}
 	\begin{claim}
 		$|S_n| = n!$
 	\end{claim}
@@ -428,9 +414,9 @@
 		Neko permutcijo lahko zapi"semo bodisi samo kot produkt sodo ali liho "stevilo transpozicij. Pravimo, da je permutacija liha ali soda.
 	\end{claim}
 
-	\begin{definition}[Alternirajo"ca grupa $A_n$]
+	\begin{defn}[Alternirajo"ca grupa $A_n$]
 		Je grupa vseh sodih permutacij mno"zice $[n]$.
-	\end{definition}
+	\end{defn}
 	Dokaz da je to grupa lahko naredite sami.
 	
 	\begin{theorem}
@@ -444,27 +430,21 @@
 	\end{proof}
 
 	\subsection{Izomorfizmi grup}
-	\begin{definition}[Homomorfizem]
+	\begin{defn}[Homomorfizem]
 		Naj bosta $(G, \cdot)$ in $(H, *)$ grupe. Preslikava
 		$\alpha G \rightarrow H$
 		je homomorfizem, "ce
 		\[ \forall a, b \in G: \alpha (a \cdot b) = \alpha(a) * \alpha (b) \]
-	\end{definition}
-	\begin{definition}[Avtomorfizem]
+	\end{defn}
+	\begin{defn}[Avtomorfizem]
 		Homomorfizem $G \rightarrow G$.
-	\end{definition}
-	\begin{definition}[Izomorfizem]
+	\end{defn}
+	\begin{defn}[Izomorfizem]
 		Bijektivni homomorfizem.
-	\end{definition}
-	\begin{definition}[Izomorfni grupi]
+	\end{defn}
+	\begin{defn}[Izomorfni grupi]
 		Grupi, med katerima obstaja izomorfizem.
-	\end{definition}
-
-	\begin{Box2}{Proposition: Loi image}
-		Soit $X : \Omega \longrightarrow E$  une variable aléatoire et $f : E \longrightarrow F$ . La loi de la variable aléatoire $Y=f\circ  X$
-		est donnée par
-		\[\forall y \in f\left(X\left(\Omega \right) \right),\quad \mathbb{P}\left(Y=y\right)=\sum_{x\in f^{-1}\left(\{y\} \right)}\mathbb{P}\left(X=x \right).  \]
-	\end{Box2}
+	\end{defn}
 
 	\begin{theorem}[Cayleyev]
 		Vsaka grupa je izomorfna neki permutacijski grupi.
@@ -491,12 +471,12 @@
 
 	\section{Odseki in pogrupe edinke}
 	Naj bo $G$ grupa in $H \subseteq G$. Za $a \in G$ definirajmo:	
-	\begin{definition}[Levi odsek $aH$]
+	\begin{defn}[Levi odsek $aH$]
 		\[ aH = \lbrace ak: k \in H \rbrace \]
-	\end{definition}
-	\begin{definition}[Desni odsek $Ha$]
+	\end{defn}
+	\begin{defn}[Desni odsek $Ha$]
 		\[ Ha = \lbrace ka: k \in H \rbrace \]
-	\end{definition}
+	\end{defn}
 
 	\begin{ex}
 		$G = S_3$. $H = \lbrace (1), (2) \rbrace $
@@ -562,8 +542,7 @@
 	\end{ex}
 
 	% 11. 05. 2021
-	% todo: beginning redacted
-	\begin{theorem}[Lagrangev]
+	\begin{theorem}[Lagrange]
 		Mo"c podgrupe deli mo"c grupe. "Stevilo razli"cnih levih (in desnih) odsekov po $H$ je $\frac{|G|}{|H|}$.
 	\end{theorem}
 	\begin{proof}
@@ -582,14 +561,14 @@
 	\end{conseq}
 	\begin{proof}
 		Vzemimo poljuben element $a \in G$ reda $n$.
-		\[ \langle a \rangle = \lbrace e, a, \ldots, a^{n-1} \rbrace \leq G \overset{\text{lagrange}}{\implies} n = |\langle a \rangle| \text{ deli } |G| \]
+		\[ \langle a \rangle = \lbrace e, a, \ldots, a^{n-1} \rbrace \leq G \overset{\text{lagrange}}{\implies} n = |\langle a \rangle| \operatorname{deli} |G| \]
 	\end{proof}
 
 	\begin{conseq}
 		Grupa pra"stevilske mo"ci je cikli"cna.
 	\end{conseq}
 	\begin{proof}
-		\[ |\langle a \rangle| \text{ deli } p \qquad |\langle a \rangle| \geq 2 \]
+		\[ |\langle a \rangle| \operatorname{deli} p \qquad |\langle a \rangle| \geq 2 \]
 		Od tod sledi, da $|\langle a \rangle| = p$, torej $\langle a \rangle = G$.
 	\end{proof}
 
@@ -614,11 +593,11 @@
 	\end{proof}
 
 	\subsection{Podgrupe edinke in faktorske grupe}
-	\begin{definition}[Podgrupa edinka]
+	\begin{defn}[Podgrupa edinka]
 		Podgrupa $H$ je edinka, "ce velja
 		\[ \forall a \in G: (aH = Ha) \]
 		Ozna"cimo $H \triangleleft G$.
-	\end{definition}
+	\end{defn}
 
 	Po to"cki 6 iz lastnosti odsekov (\ref{lastnosti_odsekov}) je torej
 	\[ H \triangleleft G \iff H = aHa^{-1} \quad \forall a \in G \]
@@ -638,23 +617,23 @@
 		\[a = e \quad eHe^{-1} = \lbrace eke^{-1}: k\in H \rbrace = \lbrace k: k \in H \rbrace = H \]
 	\end{ex}
 	
-	\begin{definition}[Konjugirana grupa]
+	\begin{defn}[Konjugirana grupa]
 		$aHa^{-1}$ je konjugirana grupa v $G$
-	\end{definition}
+	\end{defn}
 	\begin{claim}
 		$H \triangleleft G$, "ce je to edina mo"zna konjugirana grupa v $G$.
 	\end{claim}
 
-	\begin{definition}[Enostavna grupa]
+	\begin{defn}[Enostavna grupa]
 		Je grupa, katere edini edinki sta $G$ in $\lbrace e \rbrace$.
-	\end{definition}
+	\end{defn}
 
 	Osrednji razlog za pomembnost edink je to, da lahko iz odsekov edink tvorimo grupo.
 	
 	Naj bo $G$ grupa in $H \leq G$. Definirajmo mno"zico odsekov
 	\[ G / H := \lbrace aH: a \in G \rbrace \]
 	in vpeljimo operacijo
-	\[ (aH)*(bH) = (ab)H \]
+	\[ (aH)*(bH) := (ab)H \]
 	\begin{theorem}
 		"Ce je $H \triangleleft G$, potem je $(G / H, *)$ grupa.
 	\end{theorem}
@@ -671,20 +650,21 @@
 		
 		\[ a' \in aH \implies a' = ak' \quad k' \in H \]
 		\[ b' \in bH \implies b' = bk'' \quad k'' \in H \]
-		\[ (a'H)*(b'H) \overset{def}{=} (a'b')H = ak'bk''H = ak'b(k''H) \]
-		\[ ak'(bH) \overset{edinka}{=} ak'(Hb) = a(k'H)b \overset{k' \in H}{=} aHb \]
-		\[ a(Hb) \overset{edinka}{=} a(bH) \overset{def.}{=} (aH)*(bH) \]
+		\[ (a'H)*(b'H) \overset{\text{def.}}{=} (a'b')H = ak'bk''H = ak'b(k''H) \]
+		\[ ak'(bH) \overset{\text{edinka}}{=} ak'(Hb) = a(k'H)b \overset{k' \in H}{=} aHb \]
+		\[ a(Hb) \overset{\text{edinka}}{=} a(bH) \overset{\text{def.}}{=} (aH)*(bH) \]
 	\end{proof}
 
-	\begin{definition}[Faktorska grupa grupe $G$ po edinki $H$]
+	\begin{defn}[Faktorska grupa grupe $G$ po edinki $H$]
 		Grupa $(G / H, *)$ po zgoraj definiranih operacijah $*$ in $/$.
-	\end{definition}
+	\end{defn}
 
 	\begin{theorem}
 		"Ce je $G$ grupa in $G/Z(G)$ cikli"cna grupa, potem je $G$ abelova.
 	\end{theorem}
 	\begin{proof}
-		Dokaz.
+		QED.
+		% kle je reku da ne bomo dokazal, ampak je useen narisu kvadratek, tkoda I guess da to steje kot dokaz
 	\end{proof}
 
 	\section{Kolobarji in polja}
@@ -693,36 +673,37 @@
 		Author out.
 	\end{rem}
 
-	\begin{definition}[Kolobar]
+	\begin{defn}[Kolobar]
 		Mno"zica z 2 operacijama $(R, +, \cdot)$ \\
 		kjer je $(R, +)$ abelova grupa in $(R, \cdot)$ polgrupa.
 		
 		Velja distributivnost mno"zenja prek se"stevanja:
 		\[ a(b+c) = ab + ac \quad \land \quad (a+b)c = ac + bc \]
 		% kokoid
-	\end{definition}
+	\end{defn}
 	
-	\begin{definition}[Komutativen kolobar]
+	\begin{defn}[Komutativen kolobar]
 		Kolobar, v katerem je mno"zenje komutativno.
-	\end{definition}
+	\end{defn}
 	\begin{ex}
 		$2\Z$ soda cela "stevila.
 	\end{ex}
-	\begin{definition}[Kolobar z enoto]
+	\begin{defn}[Kolobar z enoto]
 		Kolobar, v katerem obstaja enota za mno"zenje.
-	\end{definition}
+	\end{defn}
 	\begin{ex}
 		$M_2(\Z)$ 2x2 matrike z elementi iz $\Z$.
 	\end{ex}
-	\begin{definition}[Kokoid]
+	\begin{defn}[Kokoid]
+		% KOKOID
 		Komutativen kolobar z identiteto (enoto).
-	\end{definition}
+	\end{defn}
 
-	\begin{definition}[Direktna vsota]
+	\begin{defn}[Direktna vsota]
 		\[ (R, +_{R}, \cdot_{R}) \oplus (S, +_{S}, \cdot_{S}) := (R \times S, +_{R \times S}, \cdot_{R \times S}) \]
 		\[ (r,s) +_{R \times S} (r',s') := (r+_{R}r', s+_{S}s') \]
 		\[ (r,s) \cdot_{R \times S} (r',s') := (r \cdot_{R} r', s \cdot_{S} s') \]
-	\end{definition}
+	\end{defn}
 	\begin{theorem}
 		"Ce sta $R$ in $S$ kolobarja, je $R \oplus S$ kolobar. "Ce imata enoto, jo ima tudi produkt. "Ce sta komutativna, je tak tudi produkt.
 	\end{theorem}
@@ -757,9 +738,9 @@
 	\end{conseq}
 
 	\subsection{Podkolobarji}
-	\begin{definition}
+	\begin{defn}
 		Naj bo $R$ kolobar in $S \subseteq R$. "Ce je $S$ kolobar za isti operaciji kot jih ima $R$, je $S$ podkolobar kolobarja $R$.
-	\end{definition}
+	\end{defn}
 	\begin{ex}
 		$\Z \subseteq \Q$
 	\end{ex}
@@ -783,10 +764,10 @@
 		Redacted.
 	\end{proof}
 
-	\begin{definition}[Center kolobarja]
+	\begin{defn}[Center kolobarja]
 		Je mno"zica tistih elementov, ki komutirajo z vsemi elementi.
 		\[ \lbrace x \in R: ax = xa \quad \forall x \in R \rbrace \]
-	\end{definition}
+	\end{defn}
 	\begin{claim}
 		Center kolobarja je njegov podkolobar.
 	\end{claim}
