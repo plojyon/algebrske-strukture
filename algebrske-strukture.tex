@@ -17,9 +17,6 @@
 % multiline comments
 \usepackage{verbatim}
 
-% dashed underline
-\usepackage{ulem}
-
 % images
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
@@ -40,11 +37,12 @@
 % I like my squares DARK
 \renewcommand\qedsymbol{$\blacksquare$}
 
-% common number sets for convenience purposes
+% common commands redefined convenience purposes
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\ch}{\operatorname{char}}
 
 % fix bordermatrix
 \usepackage{etoolbox}
@@ -582,11 +580,11 @@
 
 	\begin{conseq}[Mali Fermatov izrek]
 		"Ce je $p$ pra"stevilo in $a \in \Z$, potem je
-		\[ a^p \operatorname{mod} p = a \operatorname{mod} p \]
+		\[ a^p \bmod p = a \bmod p \]
 	\end{conseq}
 	\begin{proof}
 		$a = k \cdot p + r$, kjer $0 \leq r < p$.
-		Naj bo $r = 0$: $a \operatorname{mod} p = 0$, $a^p \operatorname{mod} p = 0$.
+		Naj bo $r = 0$: $a \bmod p = 0$, $a^p \bmod p = 0$.
 		Naj bo $1 \leq r < p$: poglejmo grupo
 		\[ G := (\Z_p - \lbrace 0 \rbrace, \cdot) \qquad |G| = p-1 \]
 		Po posledici \ref{a_na_moc} velja $r^{p-1} = 1$, torej $r^p = r$.
@@ -751,7 +749,7 @@
 		$n \geq 2 \quad n\Z \subseteq \Z$
 	\end{ex}
 
-	\begin{theorem}
+	\begin{theorem}\label{podkolobar}
 		$S$ je podkolobar $R$ natanko tedaj, ko velja vse izmed:
 		\begin{itemize}
 			\item $S \subseteq R$
@@ -775,9 +773,224 @@
 		Redacted.
 	\end{proof}
 
-	%\subsection{Delitelji ni"ca in celi kolobarji}
-	%\subsection{Polja}
-	%\subsection{Podpolja}
-	%\subsection{Karakteristika kolobarja}
-	%\subsection{Ideali}
+	% 18. 05. 2021
+	\subsection{Delitelji ni"ca in celi kolobarji}
+	\begin{ex}
+		Kolobar $(\Z_6, +, *)$. Vemo, da je $1 * 3 = 5 * 3$, iz tega pa ne sledi, da $1 = 5$.
+	\end{ex}
+	\begin{defn}[Delitelj ni"ca]
+		$a \in R$ je delitelj ni"ca, "ce obstaja $b \in R, b \neq 0$, tako da je $ab = 0$.
+	\end{defn}
+	\begin{defn}[Cel kolobar]
+		Komutativen kolobar z enoto (kokoid) brez deliteljev ni"ca.
+	\end{defn}
+	\begin{ex}
+		$\Z_n$, kjer $n$ ni pra"stevilo, ni cel kolobar.
+	\end{ex}
+	\begin{ex}
+		$ \lbrace a + b \sqrt{2}; a,b\in \Z \rbrace $ je cel kolobar.
+	\end{ex}
+
+	\begin{theorem}[Pravilo kraj"sanja]
+		"Ce je $(R, +, *)$ cel kolobar, potem v njem velja pravilo kraj"sanja (\ref{praviloKrajsanja}) za $*$.
+	\end{theorem}
+	\begin{proof}
+		\[ ab - ac = 0 \implies a(b-c) = 0 \overset{R \text{ je cel}}{\implies} b-c = 0 \implies b = c\]
+	\end{proof}
+	\begin{claim}
+		Pravilo kraj"sanja implicira poln kolobar.		
+	\end{claim}
+	\begin{proof}
+		\[ ab=0, a \neq 0 \]
+		\[ a0 = 0 \]
+		\[ ab = a0 \implies b = 0 \]
+	\end{proof}
+
+	\subsection{Polja in obsegi}
+	\begin{defn}[Obseg]
+		Kolobar, kjer so neni"celni elementi grupa za mno"zenje.
+		Torej, vsak element $a \neq 0$ mora imeti inverz za mno"zenje.
+	\end{defn}
+	\begin{defn}[Polje]
+		Komutativni obseg.
+	\end{defn}
+
+	\begin{claim}
+		Polje je cel kolobar.
+	\end{claim}
+	\begin{proof}
+		Naj bosta $a,b \in R$, kjer je $R$ polje in recimo, da je $ab = 0$ in $a \neq 0$. Ker je $a \neq 0$, $\exists a^{-1} \in R$.
+		\[ \cdot a^{-1} / \quad ab = 0 \]
+		\[ (a^{-1}a)b = a^{-1}0 \]
+		\[ b = 0 \]
+	\end{proof}
+
+	\begin{rem}
+		Obstajajo celi kolobarji, ki niso polja. Primer bi bil $(\Z, +, *)$.
+	\end{rem}
+
+	\begin{theorem}\label{koncen_cel_kolobar_je_polje}
+		"Ce je $R$ kon"cen cel koloar, potem je $R$ polje.
+	\end{theorem}
+	\begin{proof}
+		Naj bo $a \in R, a \neq 0$. Radi bi pri"carali njegov inverz.
+		
+		Poglejmo $ \lbrace a^k; k \in \N \rbrace $.
+		$ \forall k \in \N: a^k \in R $. Ker je $R$ kon"cen, velja
+		\[ \exists i,j: i > j \geq 1: a^i = a^j \]
+		\[ a^j a^{i-j} = a^i = a^j = a^j 1 \]
+		\[ \overset{\text{pravilo kraj"sanja}}{\implies} a^{i-1} = 1\]
+		Lo"cimo dva primera:
+		\begin{enumerate}
+			\item $i-j = 1$: $a^1 = 1 \implies a = 1$, tedaj je $a$ o"citno obrnljiv (inverz enote je enota).
+			
+			\item $i - j > 1$: $a^{i-j} = a a^{i-j-1} = 1$, kjer $i-j-1 > 0$. Ta ena"cba pravi, da je $a^{i-j-1}$ inverz za $a$.
+		\end{enumerate}
+	\end{proof}
+	
+	Poglejmo kon"cen kolobar $\Z_n$.
+	\begin{theorem}
+		"Ce je $n \geq 2$, potem so naslednje trditve ekvivalentne:
+		\begin{itemize}
+			\item $\Z_n$ je cel kolobar
+			\item $\Z_n$ je polje
+			\item $\Z_n$ je pra"stevilo
+		\end{itemize}
+	\end{theorem}
+	\begin{proof}
+		Prvi dve to"cki smo dokazali v prej"snjem izreku (\ref{koncen_cel_kolobar_je_polje}). Poka"zimo, da je tretja to"cka ekvivalentna prvi.
+		
+		Naj bo $n = pq$ (sestavljeno "stevilo), $2 \leq p,q \leq n$. Tedaj v $\Z_n$ velja $pq = n = 0$, torej sta $p$ in $q$ delitelja ni"ca.
+		
+		Naj bo $n$ pra"stevilo. Vzemimo delitelj ni"ca $ij=0$, $i \neq 0$, $j \neq 0$. Tedaj
+		\[ n | ij \implies n | i \quad \lor \quad n | j \]
+		torej $n$ ni pra"stevilo.
+	\end{proof}
+
+	\subsection{Podpolja}
+	\begin{defn}[Podpolje]
+		Podmno"zica polja, ki je tudi sama polje.
+	\end{defn}
+	\begin{theorem}
+		"Ce je $F$ polje, potem je $K \subseteq F$ njegovo podpolje natano tedaj, ko veljajo naslednje trditve:
+		\begin{enumerate}
+			\item $1 \in K$
+			\item $a, b \in K \implies a-b \in K$
+			\item $a,b \in K \quad (b \neq 0) \implies ab^{-1} \in K$
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		Tega ne bomo "sli dokazovat, ker je preprosto in zelo podobno izreku \ref{podkolobar}.
+	\end{proof}
+	\begin{rem}
+		V prvi to"cki ne moremo zahtevati samo $0 \in K$, ker $\lbrace 0 \rbrace$ zado"s"ca 2. in 3. to"cki, a ni polje, saj nima $1 \neq 0$.
+		
+		Lahko pa bi ekvivalentno zahtevali, da $\exists a \in K, a \neq 0$:
+		\[ \implies \exists a^{-1} \in K \implies aa^{-1} \in K \implies 1 \in K \]
+	\end{rem}
+
+	\begin{ex}
+		$F = \lbrace a + \sqrt{2}: a,b \in \Q \rbrace$,
+		F je podpolje v $\R$.
+		
+		$ 1 + 0 \sqrt{2} \in F \implies 1 \in F $
+		
+		$ (a + b \sqrt{2}) - (a' + b'\sqrt{2}) = (a-a') + (b-b')\sqrt{2} \in F $
+		
+		$ (a + b \sqrt{2}) * (a' + b'\sqrt{2}) = (aa' + 2bb') + (ab'  + ba')\sqrt{2} \in F$
+		
+		$ (a + b \sqrt{2})^{-1} \in F $:\\
+		$b = 0: a + b\sqrt{2} = a \neq 0 \implies \exists a^{-1} \in \Q$\\
+		$b \neq 0: (a + b\sqrt{2})(a - b\sqrt{2}) = (a^2 - 2b^2) \in \Q $\\
+		$(a^2 - 2b^2) \neq 0 $ (sicer bi $\sqrt{2} = \frac{a}{b}$) $\implies \exists c:=(a^2 - 2b^2)^{-1} \in \Q$\\
+		$(a + b\sqrt{2})^{-1} = (ac - bc\sqrt{2})$
+	\end{ex}
+	
+	\subsection{Karakteristika kolobarja}
+	Naj bo $R$ kolobar in $a \in R$. Naj zapis $n \cdot a$ pomeni $a + a + \ldots + a$.
+	\begin{defn}[Karakteristika kolobarja]
+		Najmanj"si $n \in \N$, da je $n \cdot a = 0$ za vse $a \in R$. "Ce tak $n$ ne obstaja, potem je karakteristika $R$ enaka $0$.
+		Oznaka: $ \ch R$
+	\end{defn}
+
+	\begin{ex}
+		$ \ch \Z_n = n$
+	\end{ex}
+	"Ce imamo kolobar z enoto (kot primer zgoraj), potem je za dolo"citev njegove karakteritike dovolj opazovati enoto.
+	
+	\begin{theorem}
+		"Ce je red $1$ v grupi $(R, +)$ enak $n < \infty$, potem je $\ch R = n$. "Ce ima $1$ neskon"cen red, potem je $\ch R = 0$.
+	\end{theorem}
+	\begin{proof}
+		Naj ima $1$ red $n$. To "ze pomeni, da je $\ch R \geq n$.
+		Naj bo sedaj $a \in R$. Tedaj je 
+		\[ n \cdot a = a + \ldots + a = 1 \cdot a + 1 \cdot a + \ldots + 1 \cdot a = (1 + 1 + \ldots + 1)\cdot a = 0 \cdot a = 0 \]
+	\end{proof}
+
+	\begin{theorem}
+		"Ce je $R$ cel kolobar, potem je $\ch R$ bodisi $0$, bodisi pra"stevilo.
+	\end{theorem}
+	\begin{proof}
+		Naj bo $\ch R > 0$, torej je $n \geq 2$. Recimo, da $n$ ni pra"stevilo: $n = pq$.
+		\[ 0 = n1 = (pq)1 = \underbrace{1 + \ldots + 1}_{\text{pq-krat}} = \underbrace{(1 + \ldots + 1)}_{p\text{-krat}}\underbrace{(1 + \ldots + 1)}_{q\text{-krat}} = (p1)(q1) \]
+		\[ p1 = 0 \quad \lor \quad q1 = 0 \]
+	\end{proof}
+
+	\subsection{Ideali}
+	\begin{defn}[Ideal]
+		Podkolobar $I$ kolobarja $R$ je ideal, "ce velja:
+		\[ a \in I, x \in R \implies ax, xa \in I \]
+	\end{defn}
+	"Ce zdru"zimo kriterij za ``biti podkolobar'' takoj dobimo:
+	\begin{theorem}
+		"Ce je $R$ kolobar in $I$ njegova podmno"zica, je $I$ ideal natanko tedaj, ko veljajo naslednje trditve:
+		\begin{enumerate}
+			\item $0 \in I$
+			\item $a,b \in I \implies a-b \in I$
+			\item $a \in I, x \in R \implies ax, xa \in I$
+		\end{enumerate}
+	\end{theorem}
+	
+	\begin{ex}
+		$n\Z = \lbrace 0, \pm n, \pm 2n, \ldots \rbrace $ je ideal v $\Z$.
+	\end{ex}
+	\begin{ex}
+		$\Z$ je podkolobar v $\Q$, ni pa ideal.
+	\end{ex}
+	
+	\begin{claim}
+		"Ce je $R$ kolobar z enoto in ideal $I$ vsebuje obrnljiv element, potem je $I = R$.
+	\end{claim}
+	\begin{proof}
+		Naj bo $a$ obrnljiv element ideala $I$.
+		\[ a \in I, a^{-1} \in R \implies aa^{-1} = 1 \in I \]
+		\[ 1 \in I, x \in R \implies 1x \in I \implies x \in I \implies I = R \]
+	\end{proof}
+	\begin{conseq}
+		"Ce je $F$ polje, sta edina ideala $F$ in $\lbrace 0 \rbrace$.
+	\end{conseq}
+
+	Naj bosta $I$ in $J$ ideala v kolobarju $R$ in definirajmo
+	\[ I + J = \lbrace i+j : \quad i \in I, j \in J \rbrace \]
+	\[ I \cdot J = \lbrace i_1 \cdot j_1 + i_2 \cdot j_2 + \ldots + i_n \cdot j_n:
+	\quad i_1, \ldots, i_n \in I,
+	\quad j_1, \ldots, j_n \in J,
+	\quad n \in \N \rbrace \]
+	
+	\begin{theorem}
+		"Ce sta $I$ in $J$ ideala v $R$, potem je sta tudi $I+J$ in $I \cdot J$ ideala v $R$.
+	\end{theorem}
+	Naj bo $I$ ideal v kolobarju $R$. Definirajmo:
+	\[ R / I = \lbrace a + I: a \in R \rbrace \]
+	in vpeljimo operacijo
+	\[ (a + I) + (b + I) = (a + b) + I \]
+	\[ (a + I) \cdot (b + I) = (ab) + I \]
+	\begin{defn}[Faktorski kolobar (po idealu $I$)]
+		"Ce je $I$ ideal kolobarja $R$, potem $R/I$ za zgornji dve operaciji imenujemo faktorski kolobar.
+	\end{defn}
+
+	\begin{ex}
+		$R = M_2(\Z)$, $I = \lbrace A \in M_2(\Z): \text{ elementi v }A\text{ so sodi} \rbrace$.
+		$I$ je ideal v $R$.
+	\end{ex}
 \end{document}
