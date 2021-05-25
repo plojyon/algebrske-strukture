@@ -993,4 +993,181 @@
 		$R = M_2(\Z)$, $I = \lbrace A \in M_2(\Z): \text{ elementi v }A\text{ so sodi} \rbrace$.
 		$I$ je ideal v $R$.
 	\end{ex}
+
+
+	% 25. 05. 2021
+	\section{Kolobarji polinomov}
+	\begin{defn}[Kolobar polinomov]
+		Komutativen kolobar $ R[x] := \lbrace a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x^1 + a_0x^0: a_i \in \R, n \in \N \rbrace $
+	\end{defn}
+	\begin{rem}
+		$x$-i tu niso neznanke oz. spremenljivke, temve"c nam povedo samo mesto za koeficient $a_i$. Zanimajo nas v resnici samo zaporedja $(a_n, \ldots, a_0)$.
+	\end{rem}
+	\begin{defn}[Ekvivalen"cna relacija polinomov]
+		\[ a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x^1 + a_0x^0 = b_nx^n + b_{n-1}x^{n-1} + \cdots + b_1x^1 + b_0x^0 \]
+		\[ \Big\Updownarrow \]
+		\[ a_n = b_n \quad \land \quad a_{n-1} = b_{n-1} \quad \land \quad \cdots \quad \land \quad a_0 = b_0 \]
+	\end{defn}
+	\begin{defn}[Stopnja polinoma]
+		Je najve"cji $n$, da je $a_n \neq 0$. Ozna"cimo $\deg(f(x)) = n$.
+	\end{defn}
+	\begin{ex}[Konstantni polinom]
+		$f(x) = a_0$ je bodisi ni"celn, bodisi ima stopnjo $0$.
+	\end{ex}
+	\begin{rem}
+		Ni"celni polinom nima definirane stopnje.
+	\end{rem}
+	
+	\begin{ex}
+		Poglejmo si polinoma v $\Z_3[x]$.
+		\[ f(x) = 2x^3 + x^2 + x + 2 \]
+		\[ g(x) = x^2 + 2x + 2 \]
+		\[ f(x) + g(x) = 2x^3 + 2x^2 + 3x + 4 = 2x^3 + 2x^2 + 1 \]
+		\[ f(x) \cdot g(x) = (2x^3 + x^2 + x + 2) \cdot (x^2 + 2x + 2) = \]
+		\[ = 2x^5 + x^4 + x^3 + x^4 + 2x^3 + 2x^2 + x^3 + 2x^2 + 2x + 2x^2 + x + 1 \]
+		\[ = 2x^5 + 2x^4 + x^3 + 1 \]
+	\end{ex}
+
+	\begin{theorem}
+		"Ce je $R$ komutativen kolobar, potem je tudi $R[x]$ komutativen kolobar.
+	\end{theorem}
+	\begin{proof}
+		Rutinsko ra"cunanje. Enota za se"stevanje je ni"celni polinom. Nasprotni element je $-f(x)$. Ve"c si lahko preverite sami.
+	\end{proof}
+
+	\begin{theorem}
+		"Ce je $R$ cel kolobar, potem je tudi $R[x]$ cel kolobar.
+	\end{theorem}
+	\begin{proof}
+		$R[x]$ je komutativen. To vemo iz prej"snjega dokaza. Nismo dokazal, ampak vemo.
+		
+		Naj bo $1 \in R$ enota za kolobar $R$. Enota za $R[x]$ je tedaj $f(x) = 1$. $R[x]$ je torej komutativen z enoto. Poka"zimo "se, da nima deliteljev ni"ca.
+		
+		\[ p(x), q(x) \neq 0 \implies p(x)q(x) \neq 0 \]
+		Naj bo $\deg(p(x)) = n$, $\deg(q(x)) = m$:
+		\[ p(x) = a_nx^n + \cdots \]
+		\[ q(x) = b_mx^m + \cdots \]
+		Ker je $a_n \neq 0$ in $b_m \neq 0$ in $R$ brez deliteljev ni"ca, potem $a_nb_m \neq 0$.
+		\[ \implies p(x)q(x) \neq 0 \]
+	\end{proof}
+
+	\begin{theorem}
+		Naj bo $R$ cel kolobar. "Ce je $\deg(p(x)) = n$ in $\deg(q(x)) = m$, potem je:
+		\begin{itemize}
+			\item $\deg(p(x) + q(x)) \leq \max \lbrace n,m \rbrace$ (ali pa je $p(x)+q(x) = 0$)
+			\item $\deg(p(x) \cdot q(x)) = n + m$
+		\end{itemize}
+	\end{theorem}
+	\begin{rem}
+		Za drugo to"cko zadnjega izreka potrebujemo predpostavko, da je $R$ cel kolobar.
+	\end{rem}
+	\begin{ex}
+		Vzemimo $\Z_8[x]$.
+		\[ p(x) = 2x^4 + 3x + 1 \]
+		\[ q(x) = 4x^4 + 2x^2 + 3 \]
+		\[ p(x) \cdot q(x) = \underbrace{2 \cdot 4}_{=0} x^2 + \cdots \]
+		Produkt je stopnje $6 < 7 = 3 + 4$, ker $\Z_8$ ni cel kolbar.
+	\end{ex}
+
+	\begin{theorem}[O deljenju polinomov]
+		Naj bo $F$ polje in $f(x), g(x) \in F[x], g(x) \neq 0$. Potem obstajata enoli"cna $q(x)$ in $r(x)$, da velja:
+		\[ f(x) = p(x) \cdot q(x) + r(x) \]
+		kjer je bodisi $r(x) = 0$, bodisi $\deg(r(x)) < \deg(q(x))$.
+	\end{theorem}
+	\begin{proof}
+		Najprej doka"zimo obstoj $q(x)$ in $r(x)$. To bomo naredili z indukcijo po $\deg(f(x))$.
+		"Se prej preverimo primer $f(x) = 0$: $q(x) = r(x) = 0 \rightarrow$ OK.
+		
+		$\deg(f(x)) = 0$: $f(x) = a_0 \in F, a_0 \neq 0$.
+		\begin{itemize}
+			\item $\deg(g(x)) > 0$: $a_0 = g(x) \cdot q(x) + r(x) $
+			\item $\deg(g(x)) = 0$: sedaj je $g(x) = b_0 \in F, b_0 \neq 0$.\\
+			Ker je $F$ polje, $b_0 \neq 0 \implies \exists b_0^{-1}$\\
+			postavimo $q(x) = b_0^{-1}f(x)$ in $r(x) = 0$.
+			\item $\deg(f(x)) = n > 0$
+			\[ f(x) = a_nx^n + a_{n-1}x^{n-1}+ \cdots + a_0 \]
+			\[ g(x) = b_nx^n + b_{n-1}x^{n-1}+ \cdots + b_0 \]
+			\item $n < m$:
+			\[ f(x) = g(x) \cdot q(x) + r(x) \]
+			\[ r(x) = f(x) \implies \deg(r) \leq n < m = deg(g) \]
+			\item $n \geq m$: poglejmo polinom:
+			\[ k(x) = f(x) - \underbrace{a_nb_m^{-1}g(x)x^{n-m}}_{a_nx^n} \]
+			kar je polinom stopnje $< n$.
+			Po IP obstajata polinoma $q(x)$ in $r(x)$, tako da se
+			\[ k(x) = g(x) \cdot q(x) + r(x) \]
+			\[ f(x) - a_nb_m^{-1}g(x)x^{n-m} = g(x) \cdot q(x) + r(x) \]
+			\[ f(x) = g(x)\Big[q(x) + a_nb_m^{-1}x^{n-m} \Big] + r(x) \]
+			Kar je to, kar smo "zeleli.
+		\end{itemize}
+	\end{proof}
+	\begin{proof}(Enoli"cnost)\\
+		\[ f(x) = g(x) \cdot q_1(x) + r_1(x) \]
+		\[ f(x) = g(x) \cdot q_2(x) + r_2(x) \]
+		\[ g(x)q_1(x)+r_1(x) = g(x)q_2(x)+r_2(x) \]
+		\[ g(x)\Big[ q_1(x)-q_2(x) \Big] = \Big[ r_2(x) - r_1(x) \Big] \]
+		"ce $q_1 \neq q_2$, potem $q_1 - q_2 \neq 0$.
+		\[ \implies \deg(q_1(x)-q_2(x)) \geq \deg(g(x)) \quad \deg(r_2(x) - r_1(x)) < \deg(g(x)) \]
+		kar je protislovje.
+		Torej velja $q_1 = q_2$, torej tudi $r_1 = r_2$.
+	\end{proof}
+
+	\subsection{Ni"cle polinomov in nerazcepni polinomi}
+	\begin{defn}[Nerazcepni polinom]
+		$f(x) \in F[x]$ je nerazcepen polinom, "ce iz $f(x) = g(x) \cdot k(x)$ sledi, da je $g(x) \in F$ ali $k(x) \in F$. Sicer je polinom razcepen.
+	\end{defn}
+	\begin{ex}
+		$p(x) = x^2 - 2 \in \Q[x]$ je nerazcepen polinom. V $\R[x]$ je razcepen.
+	\end{ex}
+
+	\begin{ex}[Pozor!]
+		V $\R[x]$ funkcije identificiramo s samim polinomom. V spo"snem to ni res! Na primer v $\Z_5$ sta polinoma $f(x) = x^3 + x + 1$ in $g(x) = x^5 + x^3 + 1$ o"citno razli"cna, vendar velja $\forall x \in \Z_5: (f(x) = g(x))$, torej dolo"cata isto funkcijo.
+	\end{ex}
+
+	\begin{theorem}
+		Obstaja $q(x) \in F[x]$, tako da velja:
+		\[ f(x) = (x-a) \cdot q(x) + f(a) \]
+	\end{theorem}
+	\begin{proof}
+		Izrek o deljenju pravi: $f(x) = (x-a)q(x) = r(x)$ kjer velja bodisi $r(x) = 0$, ali pa $\deg(r(x)) < \deg(x-a) = 1$, torej $r(x) \in F$.
+		
+		\[ f(a) = (a-a)q(a) + r(a) = r(a) = b \implies r(x) = f(a) \]
+	\end{proof}
+
+	\begin{defn}[Ni"cla polinoma]
+		Je tisti $a \in F$ za katerega velja $f(a) = 0$.
+	\end{defn}
+	\begin{theorem}
+		$a$ je ni"cla za $f(x)$ natanko tedaj, ko $x-a$ deli $f(x)$.
+	\end{theorem}
+	\begin{proof}
+		Po prej"snjem izreku $f(x) = (x-a)q(x) + f(a)$. Ker je $f(a) = 0$, lahko zapi"semo $f(x) = (x-a)q(x)$, torej $(x-a) | q(x)$.
+		
+		Naj $(x-a) | q(x)$, torej $f(x) = (x-a)q(x)$. Tedaj je $f(a) = (a-a)q(a) = 0$.
+	\end{proof}
+	\begin{conseq}
+		"Ce je polinom stopnje $> 1$ in ima ni"clo, potem je razcepen.
+	\end{conseq}
+	\begin{ex}[Obrat zadnje posledice ne velja]
+		$x^4+2x^2+1 = (x^2+1)(x^2+1)$ je razcepen v $\R[x]$, nima pa ni"cle.
+	\end{ex}
+	\begin{conseq}
+		"Ce je $\deg(f(x))$ stopnje $2$ ali $3$, potem je nerazcepen natanko tedaj, ko nima ni"cle.
+	\end{conseq}
+	\begin{proof}
+		Edini razcep polinoma stopnje $2$ ali $3$ bi vseboval vsaj en polinom stopnje $1$, od koder dobimo ni"clo.
+	\end{proof}
+
+	\begin{theorem}
+		"Ce je $\deg(f(x)) = n$, potem ima $f(x)$ kve"cjemu $n$ ni"cel.
+	\end{theorem}
+	\begin{proof}(indukcija po $n$)\\
+		$n = 0$: $f(x) = a, a \in F, a \neq 0$.
+		Ta o"citno nima ni"cel.
+		
+		Naj bo $f(x)$ polinom z $\deg(f(x)) > 0$. "Ce nima ni"cel, ni kaj dokazovati. "Ce jih ima, naj bo $a$ poljubna ni"cla polinoma. Tedaj obstaja razcep 
+		\[ f(x) = (x-a)q(x) \]
+		kjer je $\deg(q(x)) = \deg(f(x))-1$ (po zadnjem izreku). Po IP ima tedaj $q(x)$ najve"c $\deg(f(x)) - 1$ ni"cel.
+		
+		Naj bo $b \neq a$ poljubna druga ni"cla $f$. Tedaj $f(b) = (b-a)q(b) = 0$, torej je $b$ ni"cla od $q(x)$. Zato v $f$ ne more biti ve"c ni"cel kot v $q$.
+	\end{proof}
 \end{document}
