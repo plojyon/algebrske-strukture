@@ -258,7 +258,8 @@
 	
 	Za kon"cne grupe je kriterij "se enostavnej"si:
 	\begin{theorem}
-		Naj bo $(G, \cdot)$ kon"cna grupa in $\emptyset \neq H \subseteq G$. Tedaj je $(H, \cdot) \leq (G, \cdot) \iff (x,y \in H \implies xy \in H)$
+		Naj bo $(G, \cdot)$ kon"cna grupa in $\emptyset \neq H \subseteq G$. Tedaj je
+		\[ (H, \cdot) \leq (G, \cdot) \iff (x,y \in H \implies xy \in H) \]
 	\end{theorem}
 	\begin{proof}
 		Dokaz je tako zelo enostaven, da ga ne bomo "sli dokazovat. Glavna ideja je, da malo gledate ta zaporedja in potem dobite neke zaklju"cke. %ok boomer
@@ -288,7 +289,7 @@
 	\end{ex}
 
 	\begin{defn}[Center grupe]
-		Naj bo $(G, \cdot)$ grupa. Potem je $Z(G)$ center grupe $G$ podmno"zica z elementi, ki komutirajo z vsemi elementi v $G$.
+		Naj bo $(G, \cdot)$ grupa. Potem je $Z(G)$ center grupe $G$ podmno"zica z natanko tistimi elementi, ki komutirajo z vsemi elementi v $G$.
 		\[ Z(G) = \lbrace a \in G: \forall x \in G(ax=xa) \rbrace \]
 	\end{defn}
 
@@ -321,7 +322,7 @@
 	\end{defn}
 	
 	\begin{ex}
-		$(\Z, +)$ je cikli"cna grupa z generatorjema $1$ in $-1$.
+		$(\Z, +)$ je cikli"cna grupa. Njen generator je lahko $1$ ali $-1$.
 	\end{ex}
 
 	\begin{ex}
@@ -335,12 +336,12 @@
 			\item "Ce ima $a$ neskon"cen red, potem so vse potence $a^n$ med seboj paroma razli"cne.
 			\item "Ce ima $a$ kon"cen red, potem je
 			\[ \langle a \rangle = \lbrace e, a, a^2, \ldots, a^{n-1} \rbrace \]
-			Nadalje, $a^i = a^j$ velja natanko tedaj, ko $n | (i-j)$.
+			\item $a^i = a^j$ velja natanko tedaj, ko $n | (i-j)$.
 		\end{enumerate}
 	\end{theorem}
 	\begin{proof}$ $
 		\begin{enumerate}
-			\item Naj ima $a$ neskon"cen red. Opazujmo $a^i$ in $a^j$, $i \neq j$. "Ce bi veljalo $a^i = a^j$, bi $a^{i-j} = e$. Ampak $i \neq j$: to bi pomenilo, da ima $a$ kon"cen red.
+			\item Naj ima $a$ neskon"cen red. Opazujmo $a^i$ in $a^j$, $i > j$. "Ce bi veljalo $a^i = a^j$, bi $a^{i-j} = e$. Ampak $i - j \in \N$: to bi pomenilo, da ima $a$ kon"cen red.
 		
 			\item Naj ima $a$ kon"cen red $n$.
 			\[ X := \lbrace e, a, a^2, \ldots, a^{n-1} \rbrace \]
@@ -374,7 +375,7 @@
 	\end{proof}
 
 	\begin{theorem}
-		Naj bo $G$ cikli"cna grupa in $a \in G$ element reda $n$. Potem je $G = \langle a^k \rangle$ natanko tedaj, ko je $(n,k) = 1$
+		Naj bo $G$ cikli"cna grupa in $a \in G$ element reda $n$. Potem je $G = \langle a^k \rangle$ natanko tedaj, ko je $\gcd(n,k) = 1$
 	\end{theorem}
 	\begin{ex}
 		\[ (\Z_9, +) = \langle 1 \rangle = \langle 9 \rangle \]
@@ -402,9 +403,6 @@
 		Vsako permutacijo lahko enoli"cno (do vrstnega reda faktorjev natan"cno) zapi"semo kot produkt disjunktnih ciklov.
 		% proof: go fuck yourself
 	\end{claim}
-	\begin{proof}
-		Lmao you thought
-	\end{proof}
 	\begin{claim}
 		Vsako permutacijo lahko zapi"semo kot produkt transpozicij.
 		% proof: go fuck yourself
@@ -417,13 +415,13 @@
 	\begin{defn}[Alternirajo"ca grupa $A_n$]
 		Je grupa vseh sodih permutacij mno"zice $[n]$.
 	\end{defn}
-	Dokaz da je to grupa lahko naredite sami.
+	Dokaz, da je to grupa, lahko naredite sami.
 	
 	\begin{theorem}
 		"Ce je $n > 1$, potem je $|A_n| = \frac{n!}{2}$
 	\end{theorem}
 	\begin{proof}
-		Vzemimo poljubno liho permutacijo $\Pi$.
+		Poka"zimo, da je lihih in sodih permutacij enako mnogo. Za to bomo konstruirali injekcijo v obe smeri.
 		\[ \underset{\text{liha}}{\Pi} \quad \underset{\text{injektivno}}{\rightarrow} \quad \underset{\text{soda}}{(12)\cdot\Pi} \]
 		\[ \forall \Pi, \Sigma \text{ lihi: } \Pi \neq \Sigma \implies (12)\cdot\Pi \neq (12)\cdot\Sigma \]
 		"Stevilo sodih permutacij $\geq$ "stevilo lihih permutacij. Z obratnim razmislekom ugotovimo, da je "stevilo sodih $=$ "stevilo lihih permutacij.
@@ -462,6 +460,7 @@
 		\begin{itemize}
 			\item $\alpha$ preslika enoto $G$ v enoto $H$.
 			\item "ce je $a \in G, a \in \Z \implies \alpha(a^n) = (\alpha(a))^n$
+			% zakaj mora bit a \in \Z ne vem, ampak whatever
 			\item "ce $a$ in $b$ komutirata v $G$, potem $\alpha(a)$ in $\alpha(b)$ komutirata v $H$.
 			\item $G$ je abelova $\iff$ $H$ je abelova.
 			\item $G$ je cikli"cna $\iff$ $H$ je cikli"cna.
@@ -496,14 +495,20 @@
 			\item $1+H = 3 + H = 5 + H = 7 + H = 9 + H$
 		\end{itemize}
 	\end{ex}
-	Ugotovitve: opazimo, da odseki niso nujno podgrupe $H$. Lahko se zgodi, da je $aH = bH$ za $a \neq b$ ($H(13) = (13)H$). $aH \neq Ha$ je povsem mo"zno.
+
+	Ugotovitve:
+	\begin{itemize}
+		\item Opazimo, da odseki niso nujno podgrupe.
+		\item Lahko se zgodi, da je $aH = bH$ za $a \neq b$ ($H(13) = (13)H$).
+		\item Tudi $aH \neq Ha$ je povsem mo"zno.
+	\end{itemize}
 	
 	\begin{claim}[Najpomembnej"se lastnosti odsekov]\label{lastnosti_odsekov}
 		Naj bo $H$ poljubna podgrupa grupe $G$, $a,b \in G$. Tedaj veljajo naslednje lastnosti:
 		\begin{enumerate}
 			\item $a \in aH \land a \in Ha$
 			\item $aH = H \iff a \in H \iff Ha = H$
-			\item bodisi $aH = Ha$ bodisi $aH \cap Ha = \emptyset$
+			\item bodisi $aH = bH$ bodisi $aH \mathrel{\cap} bH = \emptyset$
 			\item $aH = bH \iff a^{-1}b \in H \iff Ha = Hb$
 			\item $|aH| = |bH| \land |Ha| = |Hb|$
 			\item $aH = Ha \iff H = aHa^{-1}$
@@ -513,7 +518,7 @@
 	\begin{proof}
 		Dokazali bomo prve tri trditve, ostale si boste pa sami.\\
 		\begin{enumerate}
-			\item $a \in aH$: $e \in H \implies a\cdot e \in aH$
+			\item $e \in H \implies a\cdot e \in aH$
 			\item $aH = H \iff a \in H$:
 			
 				($\Rightarrow$) Naj velja $aH = H$. Ker je $a \in aH$ (po 1.) in ker je $aH = H$, je $a \in H$.
@@ -524,7 +529,7 @@
 				
 				Sedaj "se $H \subseteq aH$: naj bo $k \in H$. Ker je $a \in H$, je \[ a^{-1} \in H \implies a^{-1}k \in H \]
 				\[a(a^{-1}k) = k \in aH \]
-			\item "Ce sta odseka disjunktna, ni kaj dokazovati. Recimo, da obstaja $x \in aH \cup bH$. $x \in aH \implies x = ak$ za nek $k \in H$. $x \in bH \implies x = bk'$ za nek $k' \in H$. Torej $ak = bk'$.
+			\item "Ce sta odseka disjunktna, ni kaj dokazovati. Recimo, da obstaja $x \in aH \mathrel{\cup} bH$. $x \in aH \implies x = ak$ za nek $k \in H$. $x \in bH \implies x = bk'$ za nek $k' \in H$. Torej $ak = bk'$.
 			\[ a = bk'k^{-1} \]
 			\[ aH = (bk'k^{-1})H = (bk')(k^{-1}H) \]
 			To"cka 2 pravi, da $k^{-1}H = H$ (ker je $k^{-1} \in H$).
@@ -547,7 +552,7 @@
 	\end{theorem}
 	\begin{proof}
 		Naj bodo $a_1H, \ldots, a_kH$ paroma razli"cni levi odseki podgrupe $H$. Tedaj velja:
-		\[ |G| = |a_1H \cup \ldots \cup a_kH| \]
+		\[ |G| = |a_1H \mathrel{\cup} \ldots \mathrel{\cup} a_kH| \]
 		To nam zagotavlja prva lastnost trditve \ref{lastnosti_odsekov} ($a \in aH$).
 		\[ = |a_1H| + \ldots + |a_kH| \]
 		(po lastnosti 3)
